@@ -2,7 +2,6 @@ import notfoundSVG from '../../images/notfound.svg';
 
 const NotFoundPage = () => {
   return (
-    <div className="w-full rounded-sm border border-stroke bg-white px-5 py-10 shadow-default dark:border-strokedark dark:bg-boxdark sm:py-20">
       <div className="mx-auto max-w-[410px]">
         <img src={notfoundSVG} alt="" />
 
@@ -35,7 +34,6 @@ const NotFoundPage = () => {
           </a>
         </div>
       </div>
-    </div>
   );
 };
 

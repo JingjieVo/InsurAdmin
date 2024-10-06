@@ -17,6 +17,7 @@ import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import DefaultLayout from './layout/DefaultLayout';
 import NotFoundPage from './pages/NotFound';
+import UnauthLayout from './layout/UnauthLayout';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
