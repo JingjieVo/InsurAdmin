@@ -1,4 +1,3 @@
-import React from 'react';
 
 function PaginationItem(props: { pageNumber: string }) {
   return (
@@ -15,7 +14,7 @@ function PaginationItem(props: { pageNumber: string }) {
 
 export default function Pagination() {
   return (
-    <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+
       <div className="p-4 sm:p-6 xl:p-7.5">
         <nav>
           <ul className="flex flex-wrap items-center">
@@ -40,14 +39,8 @@ export default function Pagination() {
               </a>
             </li>
             <PaginationItem pageNumber="1" />
-            <li>
-              <a
-                className="flex items-center justify-center rounded px-3 py-1.5 font-medium hover:bg-primary hover:text-white"
-                href="#"
-              >
-                2
-              </a>
-            </li>
+            <PaginationItem pageNumber="2" />
+            
             <li>
               <a
                 className="flex h-8 w-8 items-center justify-center rounded hover:bg-primary hover:text-white"
@@ -70,7 +63,6 @@ export default function Pagination() {
             </li>
           </ul>
         </nav>
-      </div>
-    </div>
+      </div>  
   );
 }
