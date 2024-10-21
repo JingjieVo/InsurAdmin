@@ -1,11 +1,19 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ClickOutside from '../ClickOutside';
-import UserOne from '../../images/user/user-01.png';
+import { useAuth } from '../../common/AuthContext';
+import AvtUser from '../../images/user/avt_user.jpg'
+
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const navigate = useNavigate()
+  const { logout } = useAuth();
+  const handleOnLogout = (e: React.FormEvent) => {
+    e.preventDefault;
+    logout();
+    navigate('/auth/signin')
+  }
   return (
     <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
       <Link
@@ -21,7 +29,7 @@ const DropdownUser = () => {
         </span>
 
         <span className="h-12 w-12">
-          <img className='rounded-full' src="https://scontent.fsgn2-11.fna.fbcdn.net/v/t39.30808-1/313403767_1881872052152158_8500732789366544477_n.jpg?stp=dst-jpg_s160x160&_nc_cat=105&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeFlUHAjZxeDms2wBjF5XDkao_wBn3UuHi-j_AGfdS4eL85gHe1dewW8g5lOGdWVdy1y81IGYuFR3FuqnCYcIyMa&_nc_ohc=0LKJSg9IXP0Q7kNvgHl57Yv&_nc_ht=scontent.fsgn2-11.fna&_nc_gid=A7waIlOAKGNLsNjKlmrfHPL&oh=00_AYDpWeU6YYeh5CRMT-nEmtY5tya3Myqbw6Q8a1Zp9PJP1Q&oe=670098F6" alt="User" />
+          <img className='rounded-full' src={AvtUser} alt="User" />
         </span>
 
         <svg
@@ -119,7 +127,7 @@ const DropdownUser = () => {
               </Link>
             </li>
           </ul>
-          <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+          <button onClick={handleOnLogout} className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
             <svg
               className="fill-current"
               width="22"
