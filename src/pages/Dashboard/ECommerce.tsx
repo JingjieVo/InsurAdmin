@@ -4,8 +4,8 @@ import TableOne from '../../components/Tables/TableOne';
 import TableTwo from '../../components/Tables/TableTwo';
 import TableThree from '../../components/Tables/TableThree';
 import FormPro from '../../components/Forms/FormPro';
-import NotFoundPage from '../NotFound';
-import ModalExample from '../../components/Modal';
+import DatePickerTwo from '../../components/Forms/DatePicker/DatePickerTwo';
+import RichTextEditor from '../../components/Richeditor';
 
 const ECommerce: React.FC = () => {
   return (
@@ -116,10 +116,11 @@ const ECommerce: React.FC = () => {
         </div>
         {/* <ChatCard /> */}
         <div className="col-span-12 xl:col-span-12">
-          <NotFoundPage />
+          {/* <LoadingComponent /> */}
+          <DatePickerTwo />
         </div>
         <div className="col-span-12 xl:col-span-12">
-          <ModalExample />
+          <RichTextEditor />
         </div>
       </div>
     </>

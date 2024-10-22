@@ -17,6 +17,15 @@ import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import DefaultLayout from './layout/DefaultLayout';
 import NotFoundPage from './pages/NotFound';
+import UnauthLayout from './layout/UnauthLayout';
+import NotFoundLayout from './layout/NotFoundLayout';
+import { AuthProvider } from './common/AuthContext';
+import PrivateRoute from './common/PrivateRoute';
+import Question from './pages/Product/Question';
+import Contract from './pages/Contract';
+import Claim from './pages/Claim';
+import Program from './pages/Product/Program';
+import Products from './pages/Product/Products';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -33,15 +42,69 @@ function App() {
   return loading ? (
     <Loader />
   ) : (
-    <>
+    <AuthProvider>
       <Routes>
-        <Route element={<DefaultLayout />}>
+        {/* Routes with DefaultLayout */}
+        <Route
+          element={
+            <>
+              <PrivateRoute>
+                <DefaultLayout />
+              </PrivateRoute>
+            </>
+          }
+        >
           <Route
             index
             element={
               <>
-                <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="BHHD" />
                 <ECommerce />
+              </>
+            }
+          />
+          <Route
+            path="/product/question"
+            element={
+              <>
+                <PageTitle title="Câu hỏi" />
+                <Question />
+              </>
+            }
+          />
+          <Route
+            path="/product/program"
+            element={
+              <>
+                <PageTitle title="Chương trình" />
+                <Program/>
+              </>
+            }
+          />
+          <Route
+            path="/product/products"
+            element={
+              <>
+                <PageTitle title="Bảo hiểm" />
+                <Products/>
+              </>
+            }
+          />
+          <Route
+            path="/contract"
+            element={
+              <>
+                <PageTitle title="Hợp đồng" />
+                <Contract />
+              </>
+            }
+          />
+          <Route
+            path="/claim"
+            element={
+              <>
+                <PageTitle title="Bồi thường" />
+                <Claim />
               </>
             }
           />
@@ -126,36 +189,44 @@ function App() {
               </>
             }
           />
+        </Route>
+
+        {/* Routes with UnauthLayout */}
+        <Route element={<UnauthLayout />}>
           <Route
-            path="/notfound"
+            path="/auth/signin"
+            element={
+              <>
+                <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <SignIn />
+              </>
+            }
+          />
+          <Route
+            path="/auth/signup"
             element={
               <>
                 <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <SignUp />
+              </>
+            }
+          />
+        </Route>
+
+        {/* Not Found Route */}
+        <Route element={<NotFoundLayout />}>
+          <Route
+            path="*"
+            element={
+              <>
+                <PageTitle title="404 Not Found" />
                 <NotFoundPage />
               </>
             }
           />
         </Route>
-        <Route
-          path="/auth/signin"
-          element={
-            <>
-              <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <SignIn />
-            </>
-          }
-        />
-        <Route
-          path="/auth/signup"
-          element={
-            <>
-              <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <SignUp />
-            </>
-          }
-        />
       </Routes>
-    </>
+    </AuthProvider>
   );
 }
 
