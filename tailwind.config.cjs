@@ -7,6 +7,7 @@ module.exports = {
   theme: {
     fontFamily: {
       satoshi: ['Satoshi', 'sans-serif'],
+      roboto: ['Roboto', 'sans-serif'],
     },
     screens: {
       '2xsm': '375px',

@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import SidebarLinkGroup from './SidebarLinkGroup';
-import Logo from '../../images/logo/logo.svg';
 import SidebarTab from './SidebarTab';
 import SidebarTabsChild from './SidebarTabChild';
 import SidebarNoChildTab from './SidebarNoChildTab';
+import ProductIcon from '@/components/Icons/product.svg';
+import ContractIcon from '@/components/Icons/contract.svg'
+import MoneyIcon from '@/components/Icons/money.svg'
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -67,9 +69,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-        <NavLink to="/">
+        {/* <NavLink to="/">
           <img src={Logo} alt="Logo" />
-        </NavLink>
+        </NavLink> */}
 
         <button
           ref={trigger}
@@ -108,13 +110,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Dashboard --> */}
               <SidebarLinkGroup
                 activeCondition={
-                  pathname === '/' || pathname.includes('dashboard')
+                  pathname === '/' || pathname.includes('product')
                 }
               >
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <SidebarTab handleClick={handleClick} open={open} setSidebarExpanded={setSidebarExpanded} sidebarExpanded={sidebarExpanded}/>
+                      <SidebarTab icon={ProductIcon} tabTitle='Sản phẩm' handleClick={handleClick} open={open} setSidebarExpanded={setSidebarExpanded} sidebarExpanded={sidebarExpanded}/>
                       {/* <!-- Dropdown Menu Start --> */}
                       <div
                         className={`translate transform overflow-hidden ${
@@ -122,8 +124,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         }`}
                       >
                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                          <SidebarTabsChild href='/' tabTitle='User'/>
-                          <SidebarTabsChild href='/account' tabTitle='Account'/>
+                          <SidebarTabsChild href='/product/question' tabTitle='Bộ câu hỏi'/>
+                          <SidebarTabsChild href='/product/program' tabTitle='Chương trình'/>
+                          <SidebarTabsChild href='/product/products' tabTitle='Sản phẩm'/>
+
                         </ul>
                         
                       </div>
@@ -136,7 +140,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Dashboard --> */}
 
               {/* <!-- Menu Item Calendar --> */}
-              <SidebarNoChildTab href='/calendar' tabTitle='Calendar'/>
+              <SidebarNoChildTab href='/contract' tabTitle='Hợp đồng' icon={ContractIcon}/>
+              <SidebarNoChildTab href='/claim' tabTitle='Bồi thường' icon={MoneyIcon}/>
+
+              <SidebarNoChildTab href='/calendar' tabTitle='Calendar' icon={MoneyIcon}/>
               {/* <!-- Menu Item Calendar --> */}
 
               {/* <!-- Menu Item Profile --> */}

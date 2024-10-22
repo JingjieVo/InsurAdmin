@@ -12,6 +12,7 @@ import DatePickerOne from '../../components/Forms/DatePicker/DatePickerOne';
 import DatePickerTwo from '../../components/Forms/DatePicker/DatePickerTwo';
 import SelectGroupTwo from '../../components/Forms/SelectGroup/SelectGroupTwo';
 import MultiSelect from '../../components/Forms/MultiSelect';
+import RichTextEditor from '@/components/Richeditor';
 
 const FormElements = () => {
   return (
@@ -196,6 +197,7 @@ const FormElements = () => {
               <MultiSelect id="multiSelect" />
             </div>
           </div>
+          <RichTextEditor />
         </div>
       </div>
     </>
