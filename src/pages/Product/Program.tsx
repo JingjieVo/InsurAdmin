@@ -1,20 +1,9 @@
 import Container from '@/components/Container';
-import React, { useState } from 'react';
 import DefaultInput from '../Input/DefaultInput';
 import ContentWrapper from '@/components/Container/ContentWrapper';
+import { handleSubmit } from '@/helper/HandleSubmit';
 
 export default function Program() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    // Thêm các input khác nếu cần
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    console.log("target", e.target.value)
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
   return (
     <Container>
       <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
@@ -23,20 +12,24 @@ export default function Program() {
         </h3>
       </div>
       <ContentWrapper>
-        <DefaultInput
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          label="Tên chương trình"
-          placeholder="Nhập tên chương trình"
-        />
-        <DefaultInput
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          label="Email"
-          placeholder="Nhập Email"
-        />
+        <form onSubmit={handleSubmit}>
+          <DefaultInput
+            type="text"
+            name="name"
+            label="Tên chương trình"
+            placeholder="Nhập tên chương trình"
+          />
+          <DefaultInput
+            type="text"
+            name="email"
+            label="Email"
+            placeholder="Nhập Email"
+          />
+          <input
+            type="submit"
+            className="block w-full rounded border border-primary bg-primary p-3 text-center font-medium text-white hover:bg-opacity-90"
+          />
+        </form>
       </ContentWrapper>
     </Container>
   );

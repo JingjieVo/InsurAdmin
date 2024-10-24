@@ -1,9 +1,5 @@
-import React from 'react'
+import QuestionContent from '@/components/Container/Question/QuestionContent';
 
 export default function Question() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <QuestionContent />;
 }
