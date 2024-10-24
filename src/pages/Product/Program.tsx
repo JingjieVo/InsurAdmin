@@ -1,6 +1,6 @@
-import Container from '@/components/Container';
+import Container from '@/components/Share/Container';
 import DefaultInput from '../Input/DefaultInput';
-import ContentWrapper from '@/components/Container/ContentWrapper';
+import ContentWrapper from '@/components/Share/ContentWrapper';
 import { handleSubmit } from '@/helper/HandleSubmit';
 
 export default function Program() {

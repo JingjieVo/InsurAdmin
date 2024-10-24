@@ -26,6 +26,7 @@ import Contract from './pages/Contract';
 import Claim from './pages/Claim';
 import Program from './pages/Product/Program';
 import Products from './pages/Product/Products';
+import AddQuestion from './components/Container/Question/AddQuestion';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -69,6 +70,15 @@ function App() {
               <>
                 <PageTitle title="Câu hỏi" />
                 <Question />
+              </>
+            }
+          />
+          <Route
+            path="/product/question/add-question"
+            element={
+              <>
+                <PageTitle title="Thêm câu hỏi" />
+                <AddQuestion/>
               </>
             }
           />
