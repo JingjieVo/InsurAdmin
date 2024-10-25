@@ -1,3 +1,4 @@
+import ButtonLink from '@/components/ButtonLink';
 import RichTextEditor from '@/components/Richeditor';
 import Container from '@/components/Share/Container';
 import { handleSubmit } from '@/helper/HandleSubmit';
@@ -20,12 +21,7 @@ export default function AddQuestion() {
   return (
     <div>
       <div className="w-1/6 mb-5">
-        <button
-          onClick={() => {}}
-          className="block w-full rounded border border-stroke bg-gray p-3 text-center font-medium text-black hover:border-meta-1 hover:bg-meta-1 hover:text-white"
-        >
-          Quay lại
-        </button>
+        <ButtonLink title='Quay lại' href="/product/question"/>
       </div>
       <Container>
         <div className="w-full rounded-lg bg-white px-8 py-12 text-center dark:bg-boxdark md:px-17.5 md:py-15">
