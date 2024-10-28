@@ -2,16 +2,17 @@ import ArrowLeftIcon from '@/components/Icons/ArrowLeftIcon';
 import ArrowRightIcon from '@/components/Icons/ArrowRightIcon';
 import SelectBox from '@/components/SelectBox';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface DataItem {
-  'id': string;
-  'name': string;
-  'category': string;
-  'quantity': string;
-  'idFromProvider': string;
+  id: string;
+  user: string;
+  program: string;
+  product: string;
+  status: string;
 }
 type SearchField = keyof DataItem;
-const ProgramTable = () => {
+const ClaimTable = () => {
   const [searchValue, setSearchValue] = useState('');
   const [entriesPerPage, setEntriesPerPage] = useState(5);
   const [searchField, setSearchField] = useState<SearchField>('id');
@@ -20,60 +21,26 @@ const ProgramTable = () => {
   const data = [
     {
       id: 'Barney Murray',
-      name: 'ahha',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'meo',
+      user: 'ahha',
+      program: '25 Nov, 1966',
+      product: 'Barney@gmail.com',
+      status: 'Đã duyệt',
     },
     {
       id: 'Barney Murray',
-      name: 'Developer',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'Block A, Demo Park',
+      user: 'ahha',
+      program: '25 Nov, 1966',
+      product: 'Barney@gmail.com',
+      status: 'Chờ duyệt',
     },
     {
       id: 'Barney Murray',
-      name: 'Developer',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'Block A, Demo Park',
+      user: 'ahha',
+      program: '25 Nov, 1966',
+      product: 'Barney@gmail.com',
+      status: 'Từ chối',
     },
-    {
-      id: 'Barney Murray',
-      name: 'Developer',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'Block A, Demo Park',
-    },
-    {
-      id: 'Barney Murray',
-      name: 'Developer',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'Block A, Demo Park',
-    },
-    {
-      id: 'Barney Murray',
-      name: 'Developer',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'Block A, Demo Park',
-    },
-    {
-      id: 'Barney Murray',
-      name: 'Developer',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'Block A, Demo Park',
-    },
-    {
-      id: 'Barney Murray',
-      name: 'Developer',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'Block A, Demo Park',
-    },
+
     // ... other data
   ];
 
@@ -102,9 +69,10 @@ const ProgramTable = () => {
             <span>Tìm theo:</span>
             <SelectBox
               options={[
-                { value: 'id', label: 'ID' },
-                { value: 'name', label: 'Tên' },
-                { value: 'idFromProvider', label: 'Mã NCC' },
+                { value: 'user', label: 'Người dùng' },
+                { value: 'product', label: 'Bảo hiểm' },
+                { value: 'program', label: 'Chương trình' },
+                { value: 'status', label: 'Trạng thái' },
               ]}
               onSelect={(value) => setSearchField(value as SearchField)}
             />
@@ -128,11 +96,11 @@ const ProgramTable = () => {
         <table className="datatable-table datatable-one w-full table-auto border-collapse overflow-hidden break-words px-4 md:table-fixed md:overflow-auto md:px-8">
           <thead>
             <tr className="border-t border-stroke dark:border-strokedark">
-              <th className="text-center p-3">Id</th>
-              <th className="text-center p-3">Tên chương trình</th>
-              <th className="text-center p-3">Danh mục</th>
-              <th className="text-center p-3">Số lượng</th>
-              <th className="text-center p-3">Mã từ nhà bảo hiểm</th>
+              <th className="text-center p-3">ID</th>
+              <th className="text-center p-3">Người dùng</th>
+              <th className="text-center p-3">Chương trình</th>
+              <th className="text-center p-3">Gói bảo hiểm</th>
+              <th className="text-center p-3">Trạng thái</th>
               {/* <th className="text-center p-3">Address</th>
               <th className="text-center p-3">Status</th> */}
             </tr>
@@ -144,16 +112,27 @@ const ProgramTable = () => {
                 currentPage * entriesPerPage,
               )
               .map((item, index) => (
-                <tr key={index} className=" dark:border-strokedark">
+                <Link
+                  to={`details/${item.id}`}
+                  key={index}
+                  className="table-row cursor-pointer dark:border-strokedark hover:bg-gray-100 dark:hover:bg-gray-700"
+                  style={{ display: 'table-row' }} // Ensures it behaves as a row
+                >
                   <td className="text-center p-5">{item.id}</td>
-
-                  <td className="text-center p-5">{item.name}</td>
-                  <td className="text-center">{item.category}</td>
-                  <td className="text-center">{item.quantity}</td>
-                  <td className="text-center">{item.idFromProvider}</td>
-                  {/* <td className="text-center">{item.address}</td>
-                  <td className="text-center">{item.status}</td> */}
-                </tr>
+                  <td className="text-center p-5">{item.user}</td>
+                  <td className="text-center">{item.program}</td>
+                  <td className="text-center">{item.product}</td>   
+                  <td
+                    className={`text-center p-3 ${
+                      item.status === 'Đã duyệt'
+                        ? 'text-green-500'
+                        : item.status === 'Chờ duyệt' ? 'text-yellow-400'
+                        : 'text-red-500'
+                    }`}
+                  >
+                    {item.status}
+                  </td>
+                </Link>
               ))}
           </tbody>
         </table>
@@ -199,4 +178,4 @@ const ProgramTable = () => {
   );
 };
 
-export default ProgramTable;
+export default ClaimTable;

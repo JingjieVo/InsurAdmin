@@ -6,7 +6,7 @@ export default function Program() {
   return (
     <div>
       <div className="flex mb-4 justify-end">
-        <ButtonLink title="Thêm" href="/product/question/add-question" />
+        <ButtonLink title="Thêm" href="/product/program/add-program" />
       </div>
       <Container>
         <ProgramTable />

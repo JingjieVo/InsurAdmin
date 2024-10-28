@@ -4,14 +4,15 @@ import SelectBox from '@/components/SelectBox';
 import { useState } from 'react';
 
 interface DataItem {
-  'id': string;
-  'name': string;
-  'category': string;
-  'quantity': string;
-  'idFromProvider': string;
+  id: string;
+  name: string;
+  programName: string;
+  category: string;
+  idFromProvider: string;
+  status: string;
 }
 type SearchField = keyof DataItem;
-const ProgramTable = () => {
+const ProductsTable = () => {
   const [searchValue, setSearchValue] = useState('');
   const [entriesPerPage, setEntriesPerPage] = useState(5);
   const [searchField, setSearchField] = useState<SearchField>('id');
@@ -21,59 +22,20 @@ const ProgramTable = () => {
     {
       id: 'Barney Murray',
       name: 'ahha',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
+      programName: '25 Nov, 1966',
+      category: 'Barney@gmail.com',
       idFromProvider: 'meo',
+      status: 'Khả dụng',
     },
     {
       id: 'Barney Murray',
-      name: 'Developer',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'Block A, Demo Park',
+      name: 'ahha',
+      programName: '25 Nov, 1966',
+      category: 'Barney@gmail.com',
+      idFromProvider: 'meo',
+      status: 'Ngừng cung cấp',
     },
-    {
-      id: 'Barney Murray',
-      name: 'Developer',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'Block A, Demo Park',
-    },
-    {
-      id: 'Barney Murray',
-      name: 'Developer',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'Block A, Demo Park',
-    },
-    {
-      id: 'Barney Murray',
-      name: 'Developer',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'Block A, Demo Park',
-    },
-    {
-      id: 'Barney Murray',
-      name: 'Developer',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'Block A, Demo Park',
-    },
-    {
-      id: 'Barney Murray',
-      name: 'Developer',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'Block A, Demo Park',
-    },
-    {
-      id: 'Barney Murray',
-      name: 'Developer',
-      category: '25 Nov, 1966',
-      quantity: 'Barney@gmail.com',
-      idFromProvider: 'Block A, Demo Park',
-    },
+
     // ... other data
   ];
 
@@ -103,8 +65,8 @@ const ProgramTable = () => {
             <SelectBox
               options={[
                 { value: 'id', label: 'ID' },
-                { value: 'name', label: 'Tên' },
-                { value: 'idFromProvider', label: 'Mã NCC' },
+                { value: 'name', label: 'Bảo hiểm' },
+                { value: 'programName', label: 'Chương trình' },
               ]}
               onSelect={(value) => setSearchField(value as SearchField)}
             />
@@ -128,11 +90,12 @@ const ProgramTable = () => {
         <table className="datatable-table datatable-one w-full table-auto border-collapse overflow-hidden break-words px-4 md:table-fixed md:overflow-auto md:px-8">
           <thead>
             <tr className="border-t border-stroke dark:border-strokedark">
-              <th className="text-center p-3">Id</th>
-              <th className="text-center p-3">Tên chương trình</th>
+              <th className="text-center p-3">ID</th>
+              <th className="text-center p-3">Gói bảo hiểm</th>
               <th className="text-center p-3">Danh mục</th>
-              <th className="text-center p-3">Số lượng</th>
+              <th className="text-center p-3">Chương trình</th>
               <th className="text-center p-3">Mã từ nhà bảo hiểm</th>
+              <th className="text-center p-3">Trạng thái</th>
               {/* <th className="text-center p-3">Address</th>
               <th className="text-center p-3">Status</th> */}
             </tr>
@@ -149,8 +112,17 @@ const ProgramTable = () => {
 
                   <td className="text-center p-5">{item.name}</td>
                   <td className="text-center">{item.category}</td>
-                  <td className="text-center">{item.quantity}</td>
+                  <td className="text-center">{item.programName}</td>
                   <td className="text-center">{item.idFromProvider}</td>
+                  <td
+                    className={`text-center p-3 ${
+                      item.status === 'Khả dụng'
+                        ? 'text-green-500 '
+                        : 'text-red-500 '
+                    }`}
+                  >
+                    {item.status}
+                  </td>
                   {/* <td className="text-center">{item.address}</td>
                   <td className="text-center">{item.status}</td> */}
                 </tr>
@@ -199,4 +171,4 @@ const ProgramTable = () => {
   );
 };
 
-export default ProgramTable;
+export default ProductsTable;
