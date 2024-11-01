@@ -197,7 +197,7 @@ const FormElements = () => {
               <MultiSelect id="multiSelect" />
             </div>
           </div>
-          <RichTextEditor />
+          <RichTextEditor setValue={() => {}} value='meo'/>
         </div>
       </div>
     </>

@@ -26,7 +26,9 @@ import Contract from './pages/Contract';
 import Claim from './pages/Claim';
 import Program from './pages/Product/Program';
 import Products from './pages/Product/Products';
-import AddQuestion from './components/Container/Question/AddQuestion';
+import AddQuestion from './pages/Product/Question/AddQuestion';
+import AddProgram from './pages/Product/Program/AddProgram';
+import AddProduct from './pages/Product/Products/AddProduct';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -78,7 +80,7 @@ function App() {
             element={
               <>
                 <PageTitle title="Thêm câu hỏi" />
-                <AddQuestion/>
+                <AddQuestion />
               </>
             }
           />
@@ -87,7 +89,16 @@ function App() {
             element={
               <>
                 <PageTitle title="Chương trình" />
-                <Program/>
+                <Program />
+              </>
+            }
+          />
+          <Route
+            path="/product/program/add-program"
+            element={
+              <>
+                <PageTitle title="Thêm chương trình" />
+                <AddProgram />
               </>
             }
           />
@@ -96,7 +107,16 @@ function App() {
             element={
               <>
                 <PageTitle title="Bảo hiểm" />
-                <Products/>
+                <Products />
+              </>
+            }
+          />
+          <Route
+            path="/product/products/add-product"
+            element={
+              <>
+                <PageTitle title="Thêm bảo hiểm" />
+                <AddProduct />
               </>
             }
           />

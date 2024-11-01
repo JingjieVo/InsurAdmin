@@ -1,16 +1,15 @@
-
 import Container from '../../Share/Container';
 import ButtonLink from '@/components/ButtonLink';
-import QuestionTable from './QuestionTable';
+import ProgramTable from './ProgramTable';
 
-export default function Question() {
+export default function Program() {
   return (
     <div>
       <div className="flex mb-4 justify-end">
-        <ButtonLink title="Thêm" href="/product/question/add-question" />
+        <ButtonLink title="Thêm" href="/product/program/add-program" />
       </div>
       <Container>
-        <QuestionTable />
+        <ProgramTable />
       </Container>
     </div>
   );

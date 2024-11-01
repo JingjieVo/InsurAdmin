@@ -143,7 +143,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <SidebarNoChildTab href='/contract' tabTitle='Hợp đồng' icon={ContractIcon}/>
               <SidebarNoChildTab href='/claim' tabTitle='Bồi thường' icon={MoneyIcon}/>
 
-              <SidebarNoChildTab href='/calendar' tabTitle='Calendar' icon={MoneyIcon}/>
+              {/* <SidebarNoChildTab href='/calendar' tabTitle='Calendar' icon={MoneyIcon}/> */}
               {/* <!-- Menu Item Calendar --> */}
 
               {/* <!-- Menu Item Profile --> */}
