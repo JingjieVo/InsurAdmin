@@ -120,7 +120,7 @@ const ECommerce: React.FC = () => {
           <DatePickerTwo />
         </div>
         <div className="col-span-12 xl:col-span-12">
-          <RichTextEditor />
+          {/* <RichTextEditor setValue={}/> */}
         </div>
       </div>
     </>

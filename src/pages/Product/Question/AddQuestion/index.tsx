@@ -20,7 +20,7 @@ export default function AddQuestion() {
   };
   return (
     <div>
-      <div className="w-1/6 mb-5">
+      <div className="lg:w-1/6 mb-5">
         <ButtonLink title='Quay lại' href="/product/question"/>
       </div>
       <Container>
