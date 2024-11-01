@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import CSS của React Quill để hiển thị đúng
-
 import './quill-custom.css'; // Custom CSS
 
 const modules = {
@@ -19,15 +18,18 @@ const modules = {
   ],
 };
 
-const RichTextEditor: React.FC = () => {
-  const [value, setValue] = useState<string>('');
+interface RichTextEditorProps {
+  value: string; // Nhận giá trị từ component cha
+  setValue: (value: string) => void; // Hàm để cập nhật giá trị từ component cha
+}
 
+const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, setValue }) => {
   return (
     <div className="rich-editor-container">
       <ReactQuill
         theme="snow"
-        value={value}
-        onChange={setValue}
+        value={value} // Gán giá trị từ props (component cha)
+        onChange={setValue} // Gọi hàm cập nhật giá trị từ props (component cha)
         className="scrollable-editor"
         modules={modules}
       />
