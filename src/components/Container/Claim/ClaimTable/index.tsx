@@ -113,7 +113,7 @@ const ClaimTable = () => {
               )
               .map((item, index) => (
                 <Link
-                  to={`details/${item.id}`}
+                  to={`detail/${item.id}`}
                   key={index}
                   className="table-row cursor-pointer dark:border-strokedark hover:bg-gray-100 dark:hover:bg-gray-700"
                   style={{ display: 'table-row' }} // Ensures it behaves as a row

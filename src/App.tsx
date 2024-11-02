@@ -29,6 +29,7 @@ import Products from './pages/Product/Products';
 import AddQuestion from './pages/Product/Question/AddQuestion';
 import AddProgram from './pages/Product/Program/AddProgram';
 import AddProduct from './pages/Product/Products/AddProduct';
+import ClaimDetail from './pages/Claim/ClaimDetail';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -138,6 +139,15 @@ function App() {
               </>
             }
           />
+          <Route
+            path="/claim/detail/:id"
+            element={
+              <>
+                <PageTitle title="Chi tiết bồi thường" />
+                <ClaimDetail />
+              </>
+            }
+          />  
           <Route
             path="/calendar"
             element={
