@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import GlobalIcon from '../Icons/globalicon';
+
 import ArrowDownIcon from '../Icons/ArrowDownIcon';
+import GlobalIcon from '../Icons/GlobalIcon';
 
 interface Option {
   value: string;
