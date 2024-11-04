@@ -1,8 +1,29 @@
-export type Product = {
-  image: string;
+interface Term {
+  id: number;
+  productId: number;
   name: string;
-  category: string;
+  description: string;
+  amount: number;
+  icon: string;
+}
+
+export interface Product {
+  id: number;
+  categoryId: number;
+  fromAge: number;
+  toAge: number;
+  status: string;
+  name: string;
+  description: string;
+  gender: string;
+  applicableObject: string;
+  scope: string;
+  exclusion: string;
   price: number;
-  sold: number;
-  profit: number;
-};
+  thumbnail: string;
+  attachment: string;
+  mainTerms: Term[];
+  sideTerms: Term[];
+}
+
+export type ProductsResponse = Product[];
