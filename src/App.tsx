@@ -26,6 +26,13 @@ import Contract from './pages/Contract';
 import Claim from './pages/Claim';
 import Program from './pages/Product/Program';
 import Products from './pages/Product/Products';
+import AddQuestion from './pages/Product/Question/AddQuestion';
+import AddProgram from './pages/Product/Program/AddProgram';
+import AddProduct from './pages/Product/Products/AddProduct';
+import ClaimDetail from './pages/Claim/ClaimDetail';
+import ContractGuestInfo from './pages/Contract/ContractGuestInfo';
+import ContractInfo from './pages/Contract/ContractInfo';
+
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -73,11 +80,29 @@ function App() {
             }
           />
           <Route
+            path="/product/question/add-question"
+            element={
+              <>
+                <PageTitle title="Thêm câu hỏi" />
+                <AddQuestion />
+              </>
+            }
+          />
+          <Route
             path="/product/program"
             element={
               <>
                 <PageTitle title="Chương trình" />
-                <Program/>
+                <Program />
+              </>
+            }
+          />
+          <Route
+            path="/product/program/add-program"
+            element={
+              <>
+                <PageTitle title="Thêm chương trình" />
+                <AddProgram />
               </>
             }
           />
@@ -86,7 +111,16 @@ function App() {
             element={
               <>
                 <PageTitle title="Bảo hiểm" />
-                <Products/>
+                <Products />
+              </>
+            }
+          />
+          <Route
+            path="/product/products/add-product"
+            element={
+              <>
+                <PageTitle title="Thêm bảo hiểm" />
+                <AddProduct />
               </>
             }
           />
@@ -100,11 +134,38 @@ function App() {
             }
           />
           <Route
+            path="/contract/detail/guestinfo/:id"
+            element={
+              <>
+                <PageTitle title="Chi tiết hợp đồng" />
+                <ContractGuestInfo />
+              </>
+            }
+          />
+          <Route
+            path="/contract/detail/contractinfo/:id"
+            element={
+              <>
+                <PageTitle title="Chi tiết hợp đồng" />
+                <ContractInfo />
+              </>
+            }
+          />
+          <Route
             path="/claim"
             element={
               <>
                 <PageTitle title="Bồi thường" />
                 <Claim />
+              </>
+            }
+          />
+          <Route
+            path="/claim/detail/:id"
+            element={
+              <>
+                <PageTitle title="Chi tiết bồi thường" />
+                <ClaimDetail />
               </>
             }
           />

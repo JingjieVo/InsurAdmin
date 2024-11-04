@@ -1,0 +1,53 @@
+/* Style the toolbar */
+.ql-toolbar {
+    background-color: transparent;
+    border: none;
+  }
+  
+  /* Set toolbar icons and buttons to white */
+  .ql-toolbar .ql-picker-label,
+  .ql-toolbar .ql-picker-item,
+  .ql-toolbar button {
+    color: black !important; /* Toolbar buttons and icons white */
+  }
+  
+
+  
+  /* Customize color pickers */
+  .ql-color-picker .ql-picker-item {
+    border-radius: 50%;
+    border: 1px solid white; /* White border around color picker dots */
+  }
+  
+  .ql-toolbar .ql-picker-options {
+    background-color: white; /* Dark background for dropdowns */
+    border: 1px solid white;
+  }
+  
+  /* Adjust dropdown appearance */
+  .ql-picker-options {
+    background-color: #333; /* Dark dropdown background */
+    color: white; /* Dropdown text color */
+  }
+  
+  .ql-toolbar .ql-color-picker .ql-picker-options {
+    padding: 5px;
+  }
+  
+  /* Customize active toolbar items */
+  .ql-toolbar .ql-picker-label.ql-active,
+  .ql-toolbar button.ql-active {
+    background-color: transparent; /* Darker background for active items */
+    color: #fff;
+  }
+  
+  .rich-editor-container {
+    max-height: 200px; /* Adjust this height as needed */
+    overflow-y: auto;
+  }
+  
+  /* Ensure the editor content is scrollable */
+  .scrollable-editor .ql-editor {
+    max-height: 150px; /* Adjust this height as needed */
+    overflow-y: auto;
+  }
