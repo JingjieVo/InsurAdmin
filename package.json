@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:host": "vite --host",
-    "server" : "vite | ngrok http 5173",
+    "server": "vite | ngrok http 5173",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "apexcharts": "^3.41.0",
+    "axios": "^1.7.7",
     "flatpickr": "^4.6.13",
     "headlessui": "^0.0.0",
     "jsvectormap": "^1.5.3",

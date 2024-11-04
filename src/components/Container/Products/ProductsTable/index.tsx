@@ -1,47 +1,45 @@
 import ArrowLeftIcon from '@/components/Icons/ArrowLeftIcon';
 import ArrowRightIcon from '@/components/Icons/ArrowRightIcon';
 import SelectBox from '@/components/SelectBox';
+import { Product, ProductsResponse } from '@/types/product';
 import { useState } from 'react';
 
-interface DataItem {
+
+interface ProductSearchField {
   id: string;
-  name: string;
-  programName: string;
-  category: string;
-  idFromProvider: string;
-  status: string;
 }
-type SearchField = keyof DataItem;
-const ProductsTable = () => {
+
+type SearchField = keyof ProductSearchField;
+export default function ProductsTable({data } : {data : ProductsResponse}) {
   const [searchValue, setSearchValue] = useState('');
   const [entriesPerPage, setEntriesPerPage] = useState(5);
   const [searchField, setSearchField] = useState<SearchField>('id');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const data = [
-    {
-      id: 'Barney Murray',
-      name: 'ahha',
-      programName: '25 Nov, 1966',
-      category: 'Barney@gmail.com',
-      idFromProvider: 'meo',
-      status: 'Khả dụng',
-    },
-    {
-      id: 'Barney Murray',
-      name: 'ahha',
-      programName: '25 Nov, 1966',
-      category: 'Barney@gmail.com',
-      idFromProvider: 'meo',
-      status: 'Ngừng cung cấp',
-    },
+  // const data = [
+  //   {
+  //     id: 'Barney Murray',
+  //     name: 'ahha',
+  //     programName: '25 Nov, 1966',
+  //     category: 'Barney@gmail.com',
+  //     idFromProvider: 'meo',
+  //     status: 'Khả dụng',
+  //   },
+  //   {
+  //     id: 'Barney Murray',
+  //     name: 'ahha',
+  //     programName: '25 Nov, 1966',
+  //     category: 'Barney@gmail.com',
+  //     idFromProvider: 'meo',
+  //     status: 'Ngừng cung cấp',
+  //   },
 
-    // ... other data
-  ];
-
+  //   // ... other data
+  // ];
+  
   const filteredData = data.filter(
     (item) =>
-      item[searchField]?.toLowerCase().includes(searchValue.toLowerCase()),
+      item[searchField]?.toString().toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   const handleSearch = (e: any) => setSearchValue(e.target.value);
@@ -65,8 +63,6 @@ const ProductsTable = () => {
             <SelectBox
               options={[
                 { value: 'id', label: 'ID' },
-                { value: 'name', label: 'Bảo hiểm' },
-                { value: 'programName', label: 'Chương trình' },
               ]}
               onSelect={(value) => setSearchField(value as SearchField)}
             />
@@ -111,9 +107,9 @@ const ProductsTable = () => {
                   <td className="text-center p-5">{item.id}</td>
 
                   <td className="text-center p-5">{item.name}</td>
-                  <td className="text-center">{item.category}</td>
-                  <td className="text-center">{item.programName}</td>
-                  <td className="text-center">{item.idFromProvider}</td>
+                  <td className="text-center">{item.name}</td>
+                  <td className="text-center">{item.name}</td>
+                  <td className="text-center">{item.name}</td>
                   <td
                     className={`text-center p-3 ${
                       item.status === 'Khả dụng'
@@ -171,4 +167,4 @@ const ProductsTable = () => {
   );
 };
 
-export default ProductsTable;
+
