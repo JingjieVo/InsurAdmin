@@ -30,6 +30,9 @@ import AddQuestion from './pages/Product/Question/AddQuestion';
 import AddProgram from './pages/Product/Program/AddProgram';
 import AddProduct from './pages/Product/Products/AddProduct';
 import ClaimDetail from './pages/Claim/ClaimDetail';
+import ContractGuestInfo from './pages/Contract/ContractGuestInfo';
+import ContractInfo from './pages/Contract/ContractInfo';
+
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -131,6 +134,24 @@ function App() {
             }
           />
           <Route
+            path="/contract/detail/guestinfo/:id"
+            element={
+              <>
+                <PageTitle title="Chi tiết hợp đồng" />
+                <ContractGuestInfo />
+              </>
+            }
+          />
+          <Route
+            path="/contract/detail/contractinfo/:id"
+            element={
+              <>
+                <PageTitle title="Chi tiết hợp đồng" />
+                <ContractInfo />
+              </>
+            }
+          />
+          <Route
             path="/claim"
             element={
               <>
@@ -147,7 +168,7 @@ function App() {
                 <ClaimDetail />
               </>
             }
-          />  
+          />
           <Route
             path="/calendar"
             element={
