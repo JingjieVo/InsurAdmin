@@ -1,23 +1,42 @@
+import React, { useState } from 'react';
 import ButtonLink from '@/components/ButtonLink';
 import RichTextEditor from '@/components/Richeditor';
 import Container from '@/components/Share/Container';
-import { handleSubmit } from '@/helper/HandleSubmit';
-import { useState } from 'react';
+import { createCategory } from '@/services/categoryService';
 
 export default function AddProgram() {
-  const [selectedAnswer, setSelectedAnswer] = useState('');
+  const [programName, setProgramName] = useState('');
+  const [programDescription, setProgramDescription] = useState('');
   const [editorsData, setEditorsData] = useState<Record<string, string>>({
-    question1: '', // Lưu giá trị của RichTextEditor đầu tiên
-    question2: '', // Có thể thêm nhiều editor sau này
+    question: '',
   });
 
-  // Hàm để cập nhật dữ liệu của mỗi RichTextEditor dựa trên key
   const handleOnChange = (key: string, value: string) => {
     setEditorsData((prevData) => ({
-      ...prevData, // Giữ nguyên các giá trị đã có
-      [key]: value, // Cập nhật giá trị cho editor tương ứng với key
+      ...prevData,
+      [key]: value,
     }));
   };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // TODO: Implement the actual submission logic here
+    console.log({
+      name: programName,
+      description: programDescription,
+      question: editorsData.question,
+    });
+    await createCategory({
+      name: programName,
+      description: programDescription,
+      // question: editorsData.question,
+    })
+    // Reset form after submission
+    setProgramName('');
+    setProgramDescription('');
+    setEditorsData({ question: '' });
+  };
+
   return (
     <div>
       <div className="lg:w-1/6 mb-5">
@@ -30,50 +49,43 @@ export default function AddProgram() {
           </h3>
           <span className="mx-auto mb-6 inline-block h-1 w-22.5 rounded bg-primary"></span>
           <form
-            onSubmit={(e) => handleSubmit(e, editorsData)}
+            onSubmit={handleSubmit}
             className="flex flex-col gap-5.5 py-6.5 max-h-[1980px]"
           >
+            <div>
+              <label className="mb-3 block text-start text-black dark:text-white">
+                Tên chương trình
+              </label>
+              <input
+                type="text"
+                value={programName}
+                onChange={(e) => setProgramName(e.target.value)}
+                className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                required
+              />
+            </div>
+            <div>
+              <label className="mb-3 block text-start text-black dark:text-white">
+                Mô tả chương trình
+              </label>
+              <textarea
+                value={programDescription}
+                onChange={(e) => setProgramDescription(e.target.value)}
+                rows={4}
+                className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                required
+              />
+            </div>
             <div>
               <label className="mb-3 block text-start text-black dark:text-white">
                 Câu hỏi
               </label>
               <div>
                 <RichTextEditor
-                  key="question1"
-                  value={editorsData.question1}
-                  setValue={(value) => handleOnChange('question1', value)}
+                  key="question"
+                  value={editorsData.question}
+                  setValue={(value) => handleOnChange('question', value)}
                 />
-              </div>
-            </div>
-            <div className="mb-5.5">
-              <label className="mb-4.5 block text-sm font-medium text-start text-black dark:text-white">
-                Câu trả lời đúng
-              </label>
-              <div className="flex flex-wrap items-center gap-5">
-                <div>
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="answer"
-                      value="yes"
-                      checked={selectedAnswer === 'yes'} // Kiểm tra nếu "yes" được chọn
-                      onChange={() => setSelectedAnswer('yes')} // Cập nhật trạng thái
-                    />
-                    <span>Có</span>
-                  </label>
-                </div>
-                <div>
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="answer"
-                      value="no"
-                      checked={selectedAnswer === 'no'} // Kiểm tra nếu "no" được chọn
-                      onChange={() => setSelectedAnswer('no')} // Cập nhật trạng thái
-                    />
-                    <span>Không</span>
-                  </label>
-                </div>
               </div>
             </div>
             <div className="-mx-3 flex flex-wrap gap-y-4 justify-center">
@@ -91,3 +103,4 @@ export default function AddProgram() {
     </div>
   );
 }
+
