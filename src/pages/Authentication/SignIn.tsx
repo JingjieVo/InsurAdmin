@@ -8,13 +8,14 @@ import { useAuth } from '../../common/AuthContext';
 export default function SignIn() {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhonenumber] = useState('');
   const [password, setPassword] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isLoggedIn = Boolean(localStorage.getItem('isAuthenticated')); // Kiểm tra trạng thái đăng nhập từ session
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async  (e: React.FormEvent) => {
     e.preventDefault();
-    if (login(email, password)) {
+    const user = await login(phoneNumber, password)
+    if (user) {
       navigate('/');
     } else {
       setIsModalOpen(true);
@@ -181,14 +182,14 @@ export default function SignIn() {
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label className="mb-2.5 block font-medium text-black dark:text-white">
-                  Email
+                  Phone number
                 </label>
                 <div className="relative">
                   <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    
+                    placeholder="Enter your phone number"
+                    value={phoneNumber}
+                    onChange={(e) => setPhonenumber(e.target.value)}
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>

@@ -1,58 +1,54 @@
 import ArrowLeftIcon from '@/components/Icons/ArrowLeftIcon';
 import ArrowRightIcon from '@/components/Icons/ArrowRightIcon';
 import SelectBox from '@/components/SelectBox';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getClaims } from '@/services/claimService'; // Import service
+import { Claim, ClaimResponse } from '@/types/claimType';
+import Loader from '@/common/Loader';
 
-interface DataItem {
-  id: string;
-  user: string;
-  program: string;
-  product: string;
-  status: string;
-}
-type SearchField = keyof DataItem;
+
+
+type SearchField = keyof Claim;
+
 const ClaimTable = () => {
   const [searchValue, setSearchValue] = useState('');
   const [entriesPerPage, setEntriesPerPage] = useState(5);
   const [searchField, setSearchField] = useState<SearchField>('id');
   const [currentPage, setCurrentPage] = useState(1);
+  const [claims, setClaims] = useState<ClaimResponse>(); // State to store fetched claims
+  const [loading, setLoading] = useState(true); // Loading state
 
-  const data = [
-    {
-      id: 'Barney Murray',
-      user: 'ahha',
-      program: '25 Nov, 1966',
-      product: 'Barney@gmail.com',
-      status: 'Đã duyệt',
-    },
-    {
-      id: 'Barney Murray',
-      user: 'ahha',
-      program: '25 Nov, 1966',
-      product: 'Barney@gmail.com',
-      status: 'Chờ duyệt',
-    },
-    {
-      id: 'Barney Murray',
-      user: 'ahha',
-      program: '25 Nov, 1966',
-      product: 'Barney@gmail.com',
-      status: 'Từ chối',
-    },
+  // Lấy danh sách yêu cầu bảo hiểm từ API
+  useEffect(() => {
+    const fetchClaims = async () => {
+      try {
+        const claimsData = await getClaims();
+        setClaims(claimsData);
+      } catch (error) {
+        console.error('Error fetching claims:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    // ... other data
-  ];
+    fetchClaims();
+  }, []);
 
-  const filteredData = data.filter(
+  // Lọc dữ liệu theo trường tìm kiếm
+  const filteredData = claims?.data.content.filter(
     (item) =>
-      item[searchField]?.toLowerCase().includes(searchValue.toLowerCase()),
+      item[searchField]?.toString().toLowerCase().includes(searchValue.toLowerCase())
   );
 
   const handleSearch = (e: any) => setSearchValue(e.target.value);
   const handleEntriesChange = (e: any) => setEntriesPerPage(e.target.value);
 
-  const totalPages = Math.ceil(filteredData.length / entriesPerPage);
+  const totalPages = Math.ceil(filteredData ? filteredData?.length  / entriesPerPage : 0);
+
+  if (loading) {
+    return <Loader/>; // Hiển thị khi đang tải dữ liệu
+  }
 
   return (
     <section className="data-table-common p-10 rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -98,42 +94,41 @@ const ClaimTable = () => {
             <tr className="border-t border-stroke dark:border-strokedark">
               <th className="text-center p-3">ID</th>
               <th className="text-center p-3">Người dùng</th>
-              <th className="text-center p-3">Chương trình</th>
               <th className="text-center p-3">Gói bảo hiểm</th>
               <th className="text-center p-3">Trạng thái</th>
-              {/* <th className="text-center p-3">Address</th>
-              <th className="text-center p-3">Status</th> */}
             </tr>
           </thead>
           <tbody>
-            {filteredData
-              .slice(
-                (currentPage - 1) * entriesPerPage,
-                currentPage * entriesPerPage,
-              )
-              .map((item, index) => (
-                <Link
-                  to={`detail/${item.id}`}
-                  key={index}
-                  className="table-row cursor-pointer dark:border-strokedark hover:bg-gray-100 dark:hover:bg-gray-700"
-                  style={{ display: 'table-row' }} // Ensures it behaves as a row
+            {!filteredData ? <></> : 
+            filteredData
+            .slice(
+              (currentPage - 1) * entriesPerPage,
+              currentPage * entriesPerPage
+            )
+            .map((item, index) => (
+              <Link
+                to={`detail/${item.id}`}
+                key={index}
+                className="table-row cursor-pointer dark:border-strokedark hover:bg-gray-100 dark:hover:bg-gray-700"
+                style={{ display: 'table-row' }}
+              >
+                <td className="text-center p-5">{item.id}</td>
+                <td className="text-center p-5">{item.customerName}</td>
+                <td className="text-center">{item.productName}</td>
+
+                <td
+                  className={`text-center p-3 ${
+                    item.status === 0
+                      ? 'text-green-500'
+                      : item.status === 1
+                      ? 'text-yellow-400'
+                      : 'text-red-500'
+                  }`}
                 >
-                  <td className="text-center p-5">{item.id}</td>
-                  <td className="text-center p-5">{item.user}</td>
-                  <td className="text-center">{item.program}</td>
-                  <td className="text-center">{item.product}</td>   
-                  <td
-                    className={`text-center p-3 ${
-                      item.status === 'Đã duyệt'
-                        ? 'text-green-500'
-                        : item.status === 'Chờ duyệt' ? 'text-yellow-400'
-                        : 'text-red-500'
-                    }`}
-                  >
-                    {item.status}
-                  </td>
-                </Link>
-              ))}
+                  {item.status === 0 ? 'Đã duyệt' : 'Từ chối'}
+                </td>
+              </Link>
+            ))}
           </tbody>
         </table>
       </div>
@@ -145,7 +140,6 @@ const ClaimTable = () => {
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={currentPage === 1}
           >
-            {/* SVG for previous arrow */}
             <ArrowLeftIcon />
           </button>
           {[...Array(totalPages)].map((_, i) => (
@@ -166,7 +160,6 @@ const ClaimTable = () => {
             onClick={() => setCurrentPage(currentPage + 1)}
             disabled={currentPage === totalPages}
           >
-            {/* SVG for next arrow */}
             <ArrowRightIcon />
           </button>
         </div>
