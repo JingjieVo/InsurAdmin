@@ -2,50 +2,45 @@ import ArrowLeftIcon from '@/components/Icons/ArrowLeftIcon';
 import ArrowRightIcon from '@/components/Icons/ArrowRightIcon';
 import SelectBox from '@/components/SelectBox';
 import { Product, ProductsResponse } from '@/types/product';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import { TrashIcon } from '@heroicons/react/24/outline';
 
 interface ProductSearchField {
   id: string;
 }
 
 type SearchField = keyof ProductSearchField;
-export default function ProductsTable({data } : {data : ProductsResponse}) {
+
+export default function ProductsTable({ data, onDelete }: { data: ProductsResponse; onDelete: (id: number) => Promise<void> }) {
+  const [products, setProducts] = useState<ProductsResponse>(data); // Quản lý dữ liệu sản phẩm trong state
   const [searchValue, setSearchValue] = useState('');
   const [entriesPerPage, setEntriesPerPage] = useState(5);
   const [searchField, setSearchField] = useState<SearchField>('id');
   const [currentPage, setCurrentPage] = useState(1);
 
-  // const data = [
-  //   {
-  //     id: 'Barney Murray',
-  //     name: 'ahha',
-  //     programName: '25 Nov, 1966',
-  //     category: 'Barney@gmail.com',
-  //     idFromProvider: 'meo',
-  //     status: 'Khả dụng',
-  //   },
-  //   {
-  //     id: 'Barney Murray',
-  //     name: 'ahha',
-  //     programName: '25 Nov, 1966',
-  //     category: 'Barney@gmail.com',
-  //     idFromProvider: 'meo',
-  //     status: 'Ngừng cung cấp',
-  //   },
-
-  //   // ... other data
-  // ];
-  
-  const filteredData = data.filter(
+  // Lọc dữ liệu theo giá trị tìm kiếm
+  const filteredData = products.filter(
     (item) =>
-      item[searchField]?.toString().toLowerCase().includes(searchValue.toLowerCase()),
+      item[searchField]?.toString().toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  const handleSearch = (e: any) => setSearchValue(e.target.value);
-  const handleEntriesChange = (e: any) => setEntriesPerPage(e.target.value);
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value);
+  const handleEntriesChange = (e: React.ChangeEvent<HTMLSelectElement>) => setEntriesPerPage(Number(e.target.value));
 
   const totalPages = Math.ceil(filteredData.length / entriesPerPage);
+
+  // Hàm xử lý xóa sản phẩm
+  const handleDelete = async (id: number) => {
+    if (window.confirm('Are you sure you want to delete this product?')) {
+      try {
+        await onDelete(id);
+        setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id)); // Loại bỏ sản phẩm khỏi state
+      } catch (error) {
+        console.error('Error deleting product:', error);
+        alert('Failed to delete product. Please try again.');
+      }
+    }
+  };
 
   return (
     <section className="data-table-common p-10 rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -61,9 +56,7 @@ export default function ProductsTable({data } : {data : ProductsResponse}) {
           <div className="w-2/3 flex flex-row gap-2 items-center">
             <span>Tìm theo:</span>
             <SelectBox
-              options={[
-                { value: 'id', label: 'ID' },
-              ]}
+              options={[{ value: 'id', label: 'ID' }]}
               onSelect={(value) => setSearchField(value as SearchField)}
             />
           </div>
@@ -89,38 +82,41 @@ export default function ProductsTable({data } : {data : ProductsResponse}) {
               <th className="text-center p-3">ID</th>
               <th className="text-center p-3">Gói bảo hiểm</th>
               <th className="text-center p-3">Danh mục</th>
-              <th className="text-center p-3">Chương trình</th>
-              <th className="text-center p-3">Mã từ nhà bảo hiểm</th>
+              {/* <th className="text-center p-3">Chương trình</th> */}
+              {/* <th className="text-center p-3">Mã từ nhà bảo hiểm</th> */}
               <th className="text-center p-3">Trạng thái</th>
-              {/* <th className="text-center p-3">Address</th>
-              <th className="text-center p-3">Status</th> */}
+              <th className="text-center p-3">Hành động</th>
             </tr>
           </thead>
           <tbody>
             {filteredData
               .slice(
                 (currentPage - 1) * entriesPerPage,
-                currentPage * entriesPerPage,
+                currentPage * entriesPerPage
               )
-              .map((item, index) => (
-                <tr key={index} className=" dark:border-strokedark">
-                  <td className="text-center p-5">{item.id}</td>
-
-                  <td className="text-center p-5">{item.name}</td>
+              .map((item) => (
+                <tr key={item.id} className="dark:border-strokedark">
+                  <td className="text-center">{item.id}</td>
                   <td className="text-center">{item.name}</td>
-                  <td className="text-center">{item.name}</td>
-                  <td className="text-center">{item.name}</td>
+                  <td className="text-center">{item.categoryId}</td>
+                  {/* <td className="text-center">{item.name}</td> */}
+                  {/* <td className="text-center">{item.name}</td> */}
                   <td
                     className={`text-center p-3 ${
-                      item.status === 'Khả dụng'
-                        ? 'text-green-500 '
-                        : 'text-red-500 '
+                      item.status === 'AVAILABLE' ? 'text-green-500 ' : 'text-red-500 '
                     }`}
                   >
                     {item.status}
                   </td>
-                  {/* <td className="text-center">{item.address}</td>
-                  <td className="text-center">{item.status}</td> */}
+                  <td className="text-center p-3">
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      className="text-red-500 hover:text-red-700"
+                      aria-label={`Delete product ${item.name}`}
+                    >
+                      <TrashIcon className="h-5 w-5" />
+                    </button>
+                  </td>
                 </tr>
               ))}
           </tbody>
@@ -134,7 +130,6 @@ export default function ProductsTable({data } : {data : ProductsResponse}) {
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={currentPage === 1}
           >
-            {/* SVG for previous arrow */}
             <ArrowLeftIcon />
           </button>
           {[...Array(totalPages)].map((_, i) => (
@@ -155,7 +150,6 @@ export default function ProductsTable({data } : {data : ProductsResponse}) {
             onClick={() => setCurrentPage(currentPage + 1)}
             disabled={currentPage === totalPages}
           >
-            {/* SVG for next arrow */}
             <ArrowRightIcon />
           </button>
         </div>
@@ -165,6 +159,4 @@ export default function ProductsTable({data } : {data : ProductsResponse}) {
       </div>
     </section>
   );
-};
-
-
+}
