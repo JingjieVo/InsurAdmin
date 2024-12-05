@@ -1,25 +1,13 @@
 import Container from '@/components/Share/Container';
 import ContentWrapper from '@/components/Share/ContentWrapper';
-import { useState } from 'react';
+import { ClaimDetail } from '@/types/claimType';
 
-// Define the interface for beneficiary information
-interface BeneficiaryInfoData {
-  bankName: string;
-  bankBranch: string;
-  accountHolder: string;
-  accountNumber: string;
-  relationship: string;
+interface ClaimedUserInfoProps {
+  data?: ClaimDetail | null;
 }
 
-export default function BeneficiaryInfo() {
-  // Initialize the data within the component
-  const [beneficiaryData, setBeneficiaryData] = useState<BeneficiaryInfoData>({
-    bankName: 'Ngân Hàng Nhà Nước (SBV)',
-    bankBranch: 'nsa',
-    accountHolder: 'An',
-    accountNumber: '85454',
-    relationship: 'Bản thân',
-  });
+export default function ClaimedUserInfo({ data }: ClaimedUserInfoProps) {
+  if (!data) return null;
 
   return (
     <Container>
@@ -27,22 +15,23 @@ export default function BeneficiaryInfo() {
         <h2 className="text-lg font-semibold mb-4">Thông tin đối tượng nhận bồi thường</h2>
         <div className="space-y-2">
           <div>
-            <strong>Tên ngân hàng:</strong> {beneficiaryData.bankName}
+            <strong>Tên ngân hàng:</strong> {data.bankName}
+          </div>
+          <div>a
+            <strong>Chi nhánh ngân hàng:</strong> {data.bankBranch}
           </div>
           <div>
-            <strong>Chi nhánh ngân hàng:</strong> <span>{beneficiaryData.bankBranch}</span>
+            <strong>Chủ tài khoản:</strong> {data.bankNameOwner}
           </div>
           <div>
-            <strong>Chủ tài khoản:</strong> {beneficiaryData.accountHolder}
+            <strong>Số tài khoản:</strong> {data.bankAccount}
           </div>
           <div>
-            <strong>Số tài khoản:</strong> {beneficiaryData.accountNumber}
-          </div>
-          <div>
-            <strong>Mối quan hệ (với người được BH):</strong> <span>{beneficiaryData.relationship}</span>
+            <strong>Mối quan hệ (với người được BH):</strong> Bản thân
           </div>
         </div>
       </ContentWrapper>
     </Container>
   );
 }
+

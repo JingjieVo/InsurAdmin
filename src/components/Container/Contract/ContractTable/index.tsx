@@ -1,8 +1,12 @@
 import ArrowLeftIcon from '@/components/Icons/ArrowLeftIcon';
 import ArrowRightIcon from '@/components/Icons/ArrowRightIcon';
 import SelectBox from '@/components/SelectBox';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getContracts } from '@/services/contractService'
+import { ContractSummary } from '@/types/contractType';
+import Spinner from '@/components/Spinner/Spinner';
+import Loader from '@/common/Loader';
 
 interface DataItem {
   id: string;
@@ -11,42 +15,43 @@ interface DataItem {
   program: string;
   status: string;
 }
-type SearchField = keyof DataItem;
+type SearchField = keyof ContractSummary;
+
 const ContractTable = () => {
+  const [data, setData] = useState<ContractSummary[]>([]);
   const [searchValue, setSearchValue] = useState('');
   const [entriesPerPage, setEntriesPerPage] = useState(5);
   const [searchField, setSearchField] = useState<SearchField>('id');
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const data = [
-    {
-      id: 'Barney Murray',
-      user: 'ahha',
-      category: '25 Nov, 1966',
-      program: 'Barney@gmail.com',
-      status: 'Đã duyệt',
-    },
-    {
-      id: 'Barney Murray',
-      user: 'ahha',
-      category: '25 Nov, 1966',
-      program: 'Barney@gmail.com',
-      status: 'Đang xử lý',
-    },
+  useEffect(() => {
+    const fetchContracts = async () => {
+      setIsLoading(true);
+      try {
+        const contracts = await getContracts();
+        setData(contracts.content);
+      } catch (error) {
+        console.error('Error fetching contracts:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchContracts();
+  }, []);
 
-    // ... other data
-  ];
-
-  const filteredData = data.filter(
-    (item) =>
-      item[searchField]?.toLowerCase().includes(searchValue.toLowerCase()),
+  const filteredData = data?.filter((item) =>
+    item[searchField]?.toString().toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   const handleSearch = (e: any) => setSearchValue(e.target.value);
-  const handleEntriesChange = (e: any) => setEntriesPerPage(e.target.value);
+  const handleEntriesChange = (e: any) => setEntriesPerPage(Number(e.target.value));
+  const totalPages = Math.ceil(data.length / entriesPerPage);
+  if(isLoading) {
 
-  const totalPages = Math.ceil(filteredData.length / entriesPerPage);
+    return <Loader/>
 
+  }
   return (
     <section className="data-table-common p-10 rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="flex justify-between px-8 pb-4">
@@ -63,8 +68,10 @@ const ContractTable = () => {
             <SelectBox
               options={[
                 { value: 'id', label: 'ID' },
-                { value: 'name', label: 'Bảo hiểm' },
-                { value: 'programName', label: 'Chương trình' },
+                // { value: 'user', label: 'Người dùng' },
+                // { value: 'program', label: 'Chương trình' },
+                // { value: 'category', label: 'Danh mục' },
+                // { value: 'status', label: 'Trạng thái' },
               ]}
               onSelect={(value) => setSearchField(value as SearchField)}
             />
@@ -84,52 +91,49 @@ const ContractTable = () => {
         </div>
       </div>
 
-      <div className="max-w-full overflow-x-auto">
-        <table className="datatable-table datatable-one w-full table-auto border-collapse overflow-hidden break-words px-4 md:table-fixed md:overflow-auto md:px-8">
-          <thead>
-            <tr className="border-t border-stroke dark:border-strokedark">
-              <th className="text-center p-3">ID</th>
-              <th className="text-center p-3">Người dùng</th>
-              <th className="text-center p-3">Chương trình</th>
-              <th className="text-center p-3">Danh mục</th>
-              <th className="text-center p-3">Trạng thái</th>
-              {/* <th className="text-center p-3">Address</th>
-              <th className="text-center p-3">Status</th> */}
-            </tr>
-          </thead>
-          <tbody>
-            {filteredData
-              .slice(
-                (currentPage - 1) * entriesPerPage,
-                currentPage * entriesPerPage,
-              )
-              .map((item, index) => (
-                <Link
-                  to={`detail/guestinfo/${item.id}`}
-                  key={index}
-                  className="table-row cursor-pointer dark:border-strokedark hover:bg-gray-100 dark:hover:bg-gray-700"
-                  style={{ display: 'table-row' }} // Ensures it behaves as a row
-                >
-              
+      
+        <div className="max-w-full overflow-x-auto">
+          <table className="datatable-table datatable-one w-full table-auto border-collapse overflow-hidden break-words px-4 md:table-fixed md:overflow-auto md:px-8">
+            <thead>
+              <tr className="border-t border-stroke dark:border-strokedark">
+                <th className="text-center p-3">ID</th>
+                <th className="text-center p-3">Người dùng</th>
+                <th className="text-center p-3">Sản phẩm</th>
+                <th className="text-center p-3">Danh mục</th>
+                <th className="text-center p-3">Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData && filteredData
+                .slice(
+                  (currentPage - 1) * entriesPerPage,
+                  currentPage * entriesPerPage,
+                )
+                .map((item, index) => (
+                  <Link
+                    to={`detail/guestinfo/${item.id}`}
+                    key={index}
+                    className="table-row cursor-pointer dark:border-strokedark hover:bg-gray-100 dark:hover:bg-gray-700"
+                    style={{ display: 'table-row' }}
+                  >
                     <td className="text-center p-5">{item.id}</td>
-                    <td className="text-center p-5">{item.user}</td>
-                    <td className="text-center">{item.program}</td>
-                    <td className="text-center">{item.category}</td>
+                    <td className="text-center p-5">{item.customerName}</td>
+                    <td className="text-center">{item.productName}</td>
+                    <td className="text-center">{item.categoryName}</td>
                     <td
                       className={`text-center p-3 ${
-                        item.status === 'Đã duyệt'
+                        item.status === 1
                           ? 'text-green-500 '
                           : 'text-yellow-500 '
                       }`}
                     >
-                      {item.status}
+                      {item.status === 1 ? "Còn hiệu lực" : "Hết hạn"}
                     </td>
-                
-                </Link>
-              ))}
-          </tbody>
-        </table>
-      </div>
+                  </Link>
+                ))}
+            </tbody>
+          </table>
+        </div>
 
       <div className="flex justify-between border-t border-stroke px-6 pt-5 dark:border-strokedark">
         <div className="flex">
@@ -138,7 +142,6 @@ const ContractTable = () => {
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={currentPage === 1}
           >
-            {/* SVG for previous arrow */}
             <ArrowLeftIcon />
           </button>
           {[...Array(totalPages)].map((_, i) => (
@@ -159,7 +162,6 @@ const ContractTable = () => {
             onClick={() => setCurrentPage(currentPage + 1)}
             disabled={currentPage === totalPages}
           >
-            {/* SVG for next arrow */}
             <ArrowRightIcon />
           </button>
         </div>

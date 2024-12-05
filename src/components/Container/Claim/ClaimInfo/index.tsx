@@ -1,29 +1,13 @@
 import Container from '@/components/Share/Container';
 import ContentWrapper from '@/components/Share/ContentWrapper';
-import { useState } from 'react';
+import { ClaimDetail } from '@/types/claimType';
 
-// Define the interface for claim file information
-interface ClaimFileInfoData {
-  submissionDate: string;
-  updateDate: string;
-  handlerName: string;
-  handlerEmail: string;
-  status: string;
-  claimId: string;
-  examDate: string;
+interface ClaimInfoProps {
+  data?: ClaimDetail | null;
 }
 
-export default function ClaimFileInfo() {
-  // Initialize the data within the component
-  const [claimFileData, setClaimFileData] = useState<ClaimFileInfoData>({
-    submissionDate: '18/10/2024',
-    updateDate: '18/10/2024',
-    handlerName: 'Tên người xử lý',
-    handlerEmail: 'Email người xử lý',
-    status: 'Đang xử lý',
-    claimId: '37d5b1b70b06bdec8bb401929f3a22eb',
-    examDate: '18/10/2024',
-  });
+export default function ClaimInfo({ data }: ClaimInfoProps) {
+  if (!data) return null;
 
   return (
     <Container>
@@ -31,28 +15,29 @@ export default function ClaimFileInfo() {
         <h2 className="text-lg font-semibold mb-4">Thông tin hồ sơ bồi thường</h2>
         <div className="space-y-2">
           <div>
-            <strong>Ngày gửi:</strong> <span>{claimFileData.submissionDate}</span>
+            <strong>Ngày gửi:</strong> {new Date().toLocaleDateString()}
           </div>
           <div>
-            <strong>Ngày cập nhật:</strong> <span>{claimFileData.updateDate}</span>
+            <strong>Ngày cập nhật:</strong> {new Date().toLocaleDateString()}
           </div>
           <div>
-            <strong>Tên người xử lý:</strong> {claimFileData.handlerName}
+            <strong>Tên người xử lý:</strong> Bảo Minh
           </div>
           <div>
-            <strong>Email người xử lý:</strong> {claimFileData.handlerEmail}
+            <strong>Email người xử lý:</strong> baominhinsur@gmail.com
           </div>
           <div>
-            <strong>Trạng thái:</strong> {claimFileData.status}
+            <strong>Trạng thái:</strong> {data.status}
           </div>
           <div>
-            <strong>ID bồi thường:</strong> {claimFileData.claimId}
+            <strong>ID bồi thường:</strong> {data.id}
           </div>
           <div>
-            <strong>Ngày khám/nhận viên:</strong> <span>{claimFileData.examDate}</span>
+            <strong>Ngày khám/nhập viên:</strong> {new Date().toLocaleDateString()}
           </div>
         </div>
       </ContentWrapper>
     </Container>
   );
 }
+

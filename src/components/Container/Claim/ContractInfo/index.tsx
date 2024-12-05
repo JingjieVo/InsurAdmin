@@ -1,17 +1,13 @@
 import Container from '@/components/Share/Container';
 import ContentWrapper from '@/components/Share/ContentWrapper';
+import { ClaimDetail } from '@/types/claimType';
 
-export default function ContractInfo() {
-  // Example data; replace with actual data or props as needed
-  const contractData = {
-    affinaContractNumber: '82b7badf1f66bb407ecb01928a845bb3',
-    insurerContractNumber: 'AFFLU123',
-    sothe: '',
-    contractHolderName: 'CONG TY TEST HOM NAY',
-    insurerName: 'TEST1410',
-    programName: 'Tro Cap Toan Dien 1',
-    insurancePackageName: 'Toan Dien',
-  };
+interface ContractInfoProps {
+  data?: ClaimDetail | null;
+}
+
+export default function ContractInfo({ data }: ContractInfoProps) {
+  if (!data) return null;
 
   return (
     <Container>
@@ -21,31 +17,29 @@ export default function ContractInfo() {
         </h2>
         <div className="space-y-2">
           <div>
-            <strong>Số hợp đồng Affina:</strong>{' '}
-            {contractData.affinaContractNumber}
+            <strong>Số hợp đồng:</strong> {data.contractId}
           </div>
           <div>
-            <strong>Số hợp đồng nhà bảo hiểm:</strong>{' '}
-            {contractData.insurerContractNumber}
+            <strong>Số hợp đồng nhà bảo hiểm:</strong> 4
           </div>
           <div>
-            <strong>Sothe:</strong> {contractData.sothe || 'N/A'}
+            <strong>Số thẻ:</strong> N/A
           </div>
           <div>
-            <strong>Tên chủ hợp đồng:</strong> {contractData.contractHolderName}
+            <strong>Tên chủ hợp đồng:</strong> Bảo Minh
           </div>
           <div>
-            <strong>Nhà bảo hiểm:</strong> {contractData.insurerName}
+            <strong>Nhà bảo hiểm:</strong> Bảo Minh
           </div>
           <div>
-            <strong>Tên chương trình:</strong> {contractData.programName}
+            <strong>Tên chương trình:</strong> BH Sức Khỏe
           </div>
           <div>
-            <strong>Tên gói bảo hiểm:</strong>{' '}
-            <span>{contractData.insurancePackageName}</span>
+            <strong>Tên gói bảo hiểm:</strong> An Tâm Toàn Diện
           </div>
         </div>
       </ContentWrapper>
     </Container>
   );
 }
+
