@@ -27,10 +27,20 @@ export const deleteClaim = async (id: number): Promise<void> => {
 // Lấy chi tiết yêu cầu bảo hiểm theo ID
 export const getClaimById = async (id: number): Promise<ClaimDetailResponse> => {
   try {
-    const response = await apiClient.get<ClaimDetailResponse>(`${CLAIM_API_URL}/provider/${id}`);
+    const response = await apiClient.get<ClaimDetailResponse>(`claims/provider/${id}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching claim details:", error);
     throw error;
   }
 };
+
+export const updateStatusClaim = async(id: number, status : number) => {
+  try {
+    const response = await apiClient.put<{status: number}>(`claims/provider/${id}`, { status: status });
+    return  response.status;
+
+  } catch (error) {
+    
+  }
+}

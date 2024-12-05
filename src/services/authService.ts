@@ -1,9 +1,9 @@
-import { apiClient } from "@/utils/api";
+import { apiClient, apiClientNoAuth } from "@/utils/api";
 import { jwtDecode } from "jwt-decode";
 
 export const login = async (data: LoginData): Promise<boolean> => {
   try {
-    const response = await apiClient.post<LoginResponse>("users/login", data);
+    const response = await apiClientNoAuth.post<LoginResponse>("users/login", data);
 
     // Save token to AsyncStorage
     // if()

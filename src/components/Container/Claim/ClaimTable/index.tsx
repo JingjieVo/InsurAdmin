@@ -65,10 +65,10 @@ const ClaimTable = () => {
             <span>Tìm theo:</span>
             <SelectBox
               options={[
-                { value: 'user', label: 'Người dùng' },
-                { value: 'product', label: 'Bảo hiểm' },
-                { value: 'program', label: 'Chương trình' },
-                { value: 'status', label: 'Trạng thái' },
+                { value: 'id', label: 'ID' },
+                // { value: 'product', label: 'Bảo hiểm' },
+                // { value: 'program', label: 'Chương trình' },
+                // { value: 'status', label: 'Trạng thái' },
               ]}
               onSelect={(value) => setSearchField(value as SearchField)}
             />
@@ -118,14 +118,14 @@ const ClaimTable = () => {
 
                 <td
                   className={`text-center p-3 ${
-                    item.status === 0
+                    item.status === 1
                       ? 'text-green-500'
-                      : item.status === 1
+                      : item.status === 0
                       ? 'text-yellow-400'
                       : 'text-red-500'
                   }`}
                 >
-                  {item.status === 0 ? 'Đã duyệt' : 'Từ chối'}
+                  {item.status === 1 ? 'Đã duyệt' : item.status ===0 ? 'Đang chờ' : "Từ chối"}
                 </td>
               </Link>
             ))}

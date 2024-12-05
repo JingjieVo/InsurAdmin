@@ -1,29 +1,13 @@
 import Container from '@/components/Share/Container';
 import ContentWrapper from '@/components/Share/ContentWrapper';
-import { useState } from 'react';
+import { ClaimDetail } from '@/types/claimType';
 
-// Define the interface for guest information
-interface GuestInfoData {
-  fullName: string;
-  dateOfBirth: string;
-  gender: string;
-  idNumber: string;
-  phone: string;
-  email: string;
-  address: string;
+interface GuestInfoProps {
+  data?: ClaimDetail | null;
 }
 
-export default function GuestInfo() {
-  // Define the data within the component using the interface
-  const [guestData, setGuestData] = useState<GuestInfoData>({
-    fullName: 'Linh Nhi',
-    dateOfBirth: '27/02/2014',
-    gender: 'Nữ',
-    idNumber: '100660002',
-    phone: '84866085620',
-    email: 'nhi@gmail.com',
-    address: '549, Duong Nguyen Duy Trinh, Phuong Truc Bach, Quan Ba Dinh, Thanh pho Ha Noi',
-  });
+export default function GuestInfo({ data }: GuestInfoProps) {
+  if (!data) return null;
 
   return (
     <Container>
@@ -31,28 +15,29 @@ export default function GuestInfo() {
         <h2 className="text-lg font-semibold mb-4">Thông tin đối tượng được bảo hiểm</h2>
         <div className="space-y-2">
           <div>
-            <strong>Họ tên:</strong> <span>{guestData.fullName}</span>
+            <strong>Họ tên:</strong> {data.name}
           </div>
           <div>
-            <strong>Ngày sinh:</strong> {guestData.dateOfBirth}
+            <strong>Ngày sinh:</strong> 03/10/2003
           </div>
           <div>
-            <strong>Giới tính:</strong> {guestData.gender}
+            <strong>Giới tính:</strong> Nam
           </div>
           <div>
-            <strong>CCCD:</strong> {guestData.idNumber}
+            <strong>CCCD:</strong> 206345943
           </div>
           <div>
-            <strong>Số điện thoại:</strong> {guestData.phone}
+            <strong>Số điện thoại:</strong> {data.phone}
           </div>
           <div>
-            <strong>Email:</strong> {guestData.email}
+            <strong>Email:</strong> {data.email}
           </div>
           <div>
-            <strong>Địa chỉ:</strong> {guestData.address}
+            <strong>Địa chỉ:</strong> 29 Dân Tộc, quận Tân Phú, phường Tân Thành, TP. Hồ Chí Minh
           </div>
         </div>
       </ContentWrapper>
     </Container>
   );
 }
+
