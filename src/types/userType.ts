@@ -18,7 +18,9 @@ interface User {
 
 interface DecodedToken {
   userId: string;
-  phoneNumber: string; // Or `number`, depending on your backend
+  phoneNumber: string;
+  roleId: number;
+  // Or `number`, depending on your backend
   // Add other fields that may be in the token payload if needed
 }
 
@@ -35,4 +37,22 @@ interface UserData {
   email: string;        // Email
   dateOfBirth: string | null; // Ngày sinh (có thể null)
   avatar: string;       // Tên file avatar
+}
+
+
+interface CreateProviderData {
+  phone_number: string;
+  description: string;
+  icon: string;
+  email: string;
+  fullname: string;
+  address: string;
+  password: string;
+  retype_password: string;
+}
+
+interface CreateProviderResponse {
+
+  message: string;
+
 }

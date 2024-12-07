@@ -32,17 +32,25 @@ import AddProduct from './pages/Product/Products/AddProduct';
 import ClaimDetail from './pages/Claim/ClaimDetail';
 import ContractGuestInfo from './pages/Contract/ContractGuestInfo';
 import ContractInfo from './pages/Contract/ContractInfo';
-
+import ProviderRegistration from './pages/Registration';
+import { getUserInfo } from './services/userService';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
-
+  const [role, setRole] = useState(1);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
   useEffect(() => {
+    const userInfo = () => {
+      const data = getUserInfo();
+      if (data) {
+        setRole(data.userRoleId);
+      }
+    };
+    userInfo();
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
@@ -66,7 +74,7 @@ function App() {
             element={
               <>
                 <PageTitle title="BHHD" />
-                <ECommerce />
+                {role === 1 ? <ProviderRegistration/  > : <Program/>}
               </>
             }
           />
@@ -76,6 +84,15 @@ function App() {
               <>
                 <PageTitle title="Câu hỏi" />
                 <Question />
+              </>
+            }
+          />
+          <Route
+            path="/createprovider"
+            element={
+              <>
+                <PageTitle title="Nhà cung cấp" />
+                <ProviderRegistration />
               </>
             }
           />
