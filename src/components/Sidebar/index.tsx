@@ -5,8 +5,9 @@ import SidebarTab from './SidebarTab';
 import SidebarTabsChild from './SidebarTabChild';
 import SidebarNoChildTab from './SidebarNoChildTab';
 import ProductIcon from '@/components/Icons/product.svg';
-import ContractIcon from '@/components/Icons/contract.svg'
-import MoneyIcon from '@/components/Icons/money.svg'
+import ContractIcon from '@/components/Icons/contract.svg';
+import MoneyIcon from '@/components/Icons/money.svg';
+import { getUserInfo } from '@/services/userService';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -16,17 +17,24 @@ interface SidebarProps {
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const location = useLocation();
   const { pathname } = location;
-
+  const [role, setRole] = useState(1);
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
 
   const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
   const [sidebarExpanded, setSidebarExpanded] = useState(
-    storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true'
+    storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true',
   );
 
   // close on click outside
   useEffect(() => {
+    const userInfo = () => {
+      const data = getUserInfo();
+      if (data) {
+        setRole(data.userRoleId);
+      }
+    };
+    userInfo();
     const clickHandler = ({ target }: MouseEvent) => {
       if (!sidebar.current || !trigger.current) return;
       if (
@@ -37,6 +45,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         return;
       setSidebarOpen(false);
     };
+    
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
   });
@@ -107,48 +116,66 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </h3>
 
             <ul className="mb-6 flex flex-col gap-1.5">
-              {/* <!-- Menu Item Dashboard --> */}
-              <SidebarLinkGroup
-                activeCondition={
-                  pathname === '/' || pathname.includes('product')
-                }
-              >
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <SidebarTab icon={ProductIcon} tabTitle='Sản phẩm' handleClick={handleClick} open={open} setSidebarExpanded={setSidebarExpanded} sidebarExpanded={sidebarExpanded}/>
-                      {/* <!-- Dropdown Menu Start --> */}
-                      <div
-                        className={`translate transform overflow-hidden ${
-                          !open && 'hidden'
-                        }`}
-                      >
-                        <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                          {/* <SidebarTabsChild href='/product/question' tabTitle='Bộ câu hỏi'/> */}
-                          <SidebarTabsChild href='/product/program' tabTitle='Chương trình'/>
-                          <SidebarTabsChild href='/product/products' tabTitle='Sản phẩm'/>
+              {role === 1 ? (
+                <SidebarNoChildTab
+                  href="/createprovider "
+                  tabTitle="Nhà bảo hiểm"
+                  icon={ContractIcon}
+                />
+              ) : (
+                <>
+                  <SidebarLinkGroup
+                    activeCondition={
+                      pathname === '/' || pathname.includes('product')
+                    }
+                  >
+                    {(handleClick, open) => {
+                      return (
+                        <React.Fragment>
+                          <SidebarTab
+                            icon={ProductIcon}
+                            tabTitle="Sản phẩm"
+                            handleClick={handleClick}
+                            open={open}
+                            setSidebarExpanded={setSidebarExpanded}
+                            sidebarExpanded={sidebarExpanded}
+                          />
+                          {/* <!-- Dropdown Menu Start --> */}
+                          <div
+                            className={`translate transform overflow-hidden ${
+                              !open && 'hidden'
+                            }`}
+                          >
+                            <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                              {/* <SidebarTabsChild href='/product/question' tabTitle='Bộ câu hỏi'/> */}
+                              <SidebarTabsChild
+                                href="/product/program"
+                                tabTitle="Chương trình"
+                              />
+                              <SidebarTabsChild
+                                href="/product/products"
+                                tabTitle="Sản phẩm"
+                              />
+                            </ul>
+                          </div>
 
-                        </ul>
-                        
-                      </div>
-                      
-                      {/* <!-- Dropdown Menu End --> */}
-                    </React.Fragment>
-                  );
-                }}
-              </SidebarLinkGroup>
-              {/* <!-- Menu Item Dashboard --> */}
-
-              {/* <!-- Menu Item Calendar --> */}
-              <SidebarNoChildTab href='/contract' tabTitle='Hợp đồng' icon={ContractIcon}/>
-              <SidebarNoChildTab href='/claim' tabTitle='Bồi thường' icon={MoneyIcon}/>
-
-              {/* <SidebarNoChildTab href='/calendar' tabTitle='Calendar' icon={MoneyIcon}/> */}
-              {/* <!-- Menu Item Calendar --> */}
-
-              {/* <!-- Menu Item Profile --> */}
-              
-              {/* <!-- Menu Item Settings --> */}
+                          {/* <!-- Dropdown Menu End --> */}
+                        </React.Fragment>
+                      );
+                    }}
+                  </SidebarLinkGroup>
+                  <SidebarNoChildTab
+                    href="/contract"
+                    tabTitle="Hợp đồng"
+                    icon={ContractIcon}
+                  />
+                  <SidebarNoChildTab
+                    href="/claim"
+                    tabTitle="Bồi thường"
+                    icon={MoneyIcon}
+                  />
+                </>
+              )}
             </ul>
           </div>
 

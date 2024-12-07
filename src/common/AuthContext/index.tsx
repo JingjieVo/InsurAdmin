@@ -3,7 +3,7 @@ import { login as apiLogin, logout as apiLogout, getUserToken } from "@/services
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string, role_id: number) => Promise<boolean>;
   logout: () => void;
   token: string | null;
 }
@@ -23,8 +23,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return storedToken === "none" ? null : storedToken;
   });
 
-  const login = async (phone_number: string, password: string): Promise<boolean> => {
-    const isSuccess = await apiLogin({ phone_number, password, role_id: 3 });
+  const login = async (phone_number: string, password: string, role_id: number): Promise<boolean> => {
+    const isSuccess = await apiLogin({ phone_number, password, role_id: role_id });
     if (isSuccess) {
       const newToken = getUserToken();
       setToken(newToken);
