@@ -1,11 +1,12 @@
 import { createProvider } from '@/services/userService';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Alerts from '../UiElements/Alerts';
-
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function ProviderRegistration() {
   const navigate = useNavigate();
+  const notifySuccess = () => toast.success('Tạo thành công');
+  const notifyFail = () => toast.error(error);
   const [formData, setFormData] = useState({
     phone_number: '',
     description: '',
@@ -15,33 +16,38 @@ export default function ProviderRegistration() {
     address: '',
     password: '',
     retype_password: '',
+    // role_id: 3
   });
   const [error, setError] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.password !== formData.retype_password) {
-      setError('Passwords do not match');
+      setError("Mật khẩu không khớp")
+      notifyFail()
       return;
     }
     const success = await createProvider(formData);
     if (success) {
-      alert("Tạo thành công")
+      notifySuccess();
     } else {
-      setError('Failed to create provider account. Please try again.');
+      setError("số điện thoại hoặc gmail đã tồn tại")
+      notifyFail();
     }
   };
 
   return (
-    <div className=" bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="pt-10 bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Tạo tài khoản cho nhà bảo hiểm
@@ -54,7 +60,10 @@ export default function ProviderRegistration() {
             {/* Row 1 */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <label htmlFor="phone_number" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="phone_number"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Số điện thoại
                 </label>
                 <div className="mt-1">
@@ -71,7 +80,10 @@ export default function ProviderRegistration() {
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Email
                 </label>
                 <div className="mt-1">
@@ -89,7 +101,10 @@ export default function ProviderRegistration() {
               </div>
 
               <div>
-                <label htmlFor="fullname" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="fullname"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Tên nhà bảo hiểm
                 </label>
                 <div className="mt-1">
@@ -110,7 +125,10 @@ export default function ProviderRegistration() {
             {/* Row 2 */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <label htmlFor="icon" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="icon"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Icon
                 </label>
                 <div className="mt-1">
@@ -126,7 +144,10 @@ export default function ProviderRegistration() {
               </div>
 
               <div>
-                <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="address"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Địa chỉ
                 </label>
                 <div className="mt-1">
@@ -135,7 +156,7 @@ export default function ProviderRegistration() {
                     name="address"
                     type="text"
                     required
-                    autoComplete='off'
+                    autoComplete="off"
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     value={formData.address}
                     onChange={handleChange}
@@ -144,7 +165,10 @@ export default function ProviderRegistration() {
               </div>
 
               <div>
-                <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Mô tả
                 </label>
                 <div className="mt-1">
@@ -163,7 +187,10 @@ export default function ProviderRegistration() {
             {/* Row 3 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Mật khẩu
                 </label>
                 <div className="mt-1">
@@ -172,7 +199,7 @@ export default function ProviderRegistration() {
                     name="password"
                     type="password"
                     required
-                    autoComplete='off'
+                    autoComplete="off"
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     value={formData.password}
                     onChange={handleChange}
@@ -181,7 +208,10 @@ export default function ProviderRegistration() {
               </div>
 
               <div>
-                <label htmlFor="retype_password" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="retype_password"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Nhập lại mật khẩu
                 </label>
                 <div className="mt-1">
@@ -198,11 +228,7 @@ export default function ProviderRegistration() {
               </div>
             </div>
 
-            {error && (
-              <div className="text-red-600 text-sm mt-2">
-                {error}
-              </div>
-            )}
+            {/* {error && <div className="text-red-600 text-sm mt-2">{error}</div>} */}
 
             <div>
               <button
@@ -211,6 +237,7 @@ export default function ProviderRegistration() {
               >
                 Tạo
               </button>
+              <ToastContainer />
             </div>
           </form>
         </div>
@@ -218,4 +245,3 @@ export default function ProviderRegistration() {
     </div>
   );
 }
-

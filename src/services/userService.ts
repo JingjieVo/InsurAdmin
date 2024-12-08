@@ -1,3 +1,4 @@
+import { Provider, ProviderResponse } from '@/types/providerType';
 import { apiClient, apiClientNoAuth } from '@/utils/api';
 import { jwtDecode } from 'jwt-decode';
 
@@ -40,6 +41,19 @@ export const createProvider = async (data: CreateProviderData): Promise<boolean>
   } catch (error) {
     console.error("Error creating provider:", error);
     return false;
+  }
+};
+
+
+export const getProviders = async (): Promise<ProviderResponse> => {
+  try {
+    const response = await apiClient.get<ProviderResponse>("admins/provider");
+      // localStorage.setItem("authToken", response.data.token);
+      return response.data
+
+  } catch (error) {
+    console.error("Error creating provider:", error);
+    throw error
   }
 };
 

@@ -1,39 +1,39 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
+import { AuthProvider } from './common/AuthContext';
 import Loader from './common/Loader';
+import PrivateRoute from './common/PrivateRoute';
 import PageTitle from './components/PageTitle';
+import DefaultLayout from './layout/DefaultLayout';
+import NotFoundLayout from './layout/NotFoundLayout';
+import UnauthLayout from './layout/UnauthLayout';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';
-import ECommerce from './pages/Dashboard/ECommerce';
+import Claim from './pages/Claim';
+import ClaimDetail from './pages/Claim/ClaimDetail';
+import Contract from './pages/Contract';
+import ContractGuestInfo from './pages/Contract/ContractGuestInfo';
+import ContractInfo from './pages/Contract/ContractInfo';
 import FormElements from './pages/Form/FormElements';
 import FormLayout from './pages/Form/FormLayout';
+import NotFoundPage from './pages/NotFound';
+import Products from './pages/Product/Products';
+import AddProduct from './pages/Product/Products/AddProduct';
+import Program from './pages/Product/Program';
+import AddProgram from './pages/Product/Program/AddProgram';
+import Question from './pages/Product/Question';
+import AddQuestion from './pages/Product/Question/AddQuestion';
 import Profile from './pages/Profile';
+import ProviderRegistration from './pages/Registration';
 import Settings from './pages/Settings';
 import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
-import DefaultLayout from './layout/DefaultLayout';
-import NotFoundPage from './pages/NotFound';
-import UnauthLayout from './layout/UnauthLayout';
-import NotFoundLayout from './layout/NotFoundLayout';
-import { AuthProvider } from './common/AuthContext';
-import PrivateRoute from './common/PrivateRoute';
-import Question from './pages/Product/Question';
-import Contract from './pages/Contract';
-import Claim from './pages/Claim';
-import Program from './pages/Product/Program';
-import Products from './pages/Product/Products';
-import AddQuestion from './pages/Product/Question/AddQuestion';
-import AddProgram from './pages/Product/Program/AddProgram';
-import AddProduct from './pages/Product/Products/AddProduct';
-import ClaimDetail from './pages/Claim/ClaimDetail';
-import ContractGuestInfo from './pages/Contract/ContractGuestInfo';
-import ContractInfo from './pages/Contract/ContractInfo';
-import ProviderRegistration from './pages/Registration';
 import { getUserInfo } from './services/userService';
+import Provider from './pages/Provider';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -74,7 +74,7 @@ function App() {
             element={
               <>
                 <PageTitle title="BHHD" />
-                {role === 1 ? <ProviderRegistration/  > : <Program/>}
+                {role === 1 ? <ProviderRegistration /> : <Program />}
               </>
             }
           />
@@ -91,8 +91,17 @@ function App() {
             path="/createprovider"
             element={
               <>
-                <PageTitle title="Nhà cung cấp" />
+                <PageTitle title="Tạo TK nhà cung cấp" />
                 <ProviderRegistration />
+              </>
+            }
+          />
+          <Route
+            path="/providers"
+            element={
+              <>
+                <PageTitle title="Nhà cung cấp" />
+                <Provider />
               </>
             }
           />
