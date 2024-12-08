@@ -45,8 +45,7 @@ export default function SignIn() {
             </Link>
 
             <p className="2xl:px-20">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
-              suspendisse.
+              Chào mừng đến với INSURANCE TECH
             </p>
 
             <span className="mt-15 inline-block">
@@ -166,12 +165,12 @@ export default function SignIn() {
           <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
             <span className="mb-1.5 block font-medium">Start for free</span>
             <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-              Sign In to TailAdmin
+              Đăng nhập vào hệ thống
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label className="mb-2.5 block font-medium text-black dark:text-white">
-                  Phone number
+                  Số điện thoại
                 </label>
                 <div className="relative">
                   <input
@@ -185,7 +184,7 @@ export default function SignIn() {
 
               <div className="mb-4">
                 <label className="mb-2.5 block font-medium text-black dark:text-white">
-                  Password
+                  Mật khẩu
                 </label>
                 <div className="relative">
                   <input
