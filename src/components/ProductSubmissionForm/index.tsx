@@ -110,7 +110,7 @@ export default function ProductSubmissionForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Tên bảo hiểm</label>
         <input
           type="text"
           id="name"
@@ -123,7 +123,7 @@ export default function ProductSubmissionForm() {
       </div>
 
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+        <label htmlFor="description" className="block text-sm font-medium text-gray-700">Mô tả</label>
         <textarea
           id="description"
           name="description"
@@ -136,7 +136,7 @@ export default function ProductSubmissionForm() {
       </div>
 
       <div>
-        <label htmlFor="categoryId" className="block text-sm font-medium text-gray-700">Category</label>
+        <label htmlFor="categoryId" className="block text-sm font-medium text-gray-700">Chương trình (danh mục)</label>
         <select
           id="categoryId"
           name="categoryId"
@@ -156,7 +156,7 @@ export default function ProductSubmissionForm() {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label htmlFor="fromAge" className="block text-sm font-medium text-gray-700">From Age</label>
+          <label htmlFor="fromAge" className="block text-sm font-medium text-gray-700">Tuổi từ</label>
           <input
             type="number"
             id="fromAge"
@@ -168,7 +168,7 @@ export default function ProductSubmissionForm() {
           />
         </div>
         <div>
-          <label htmlFor="toAge" className="block text-sm font-medium text-gray-700">To Age</label>
+          <label htmlFor="toAge" className="block text-sm font-medium text-gray-700">Đến tuổi</label>
           <input
             type="number"
             id="toAge"
@@ -196,7 +196,7 @@ export default function ProductSubmissionForm() {
       </div>
 
       <div>
-        <label htmlFor="gender" className="block text-sm font-medium text-gray-700">Gender</label>
+        <label htmlFor="gender" className="block text-sm font-medium text-gray-700">Giới tính</label>
         <select
           id="gender"
           name="gender"
@@ -205,15 +205,15 @@ export default function ProductSubmissionForm() {
           required
           className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         >
-          <option value="">Select gender</option>
-          <option value="ALL">All</option>
-          <option value="MALE">Male</option>
-          <option value="FEMALE">Female</option>
+          <option value="">Chọn giới tính</option>
+          <option value="ALL">Tất cả</option>
+          <option value="MALE">Nam</option>
+          <option value="FEMALE">Nữ</option>
         </select>
       </div>
 
       <div>
-        <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
+        <label htmlFor="status" className="block text-sm font-medium text-gray-700">Trạng thái</label>
         <select
           id="status"
           name="status"
@@ -222,14 +222,14 @@ export default function ProductSubmissionForm() {
           required
           className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         >
-          <option value="">Select status</option>
-          <option value="AVAILABLE">Available</option>
-          <option value="UNAVAILABLE">Unavailable</option>
+          <option value="">Chọn trạng thái</option>
+          <option value="AVAILABLE">Khả dụng</option>
+          <option value="UNAVAILABLE">Không khả dụng</option>
         </select>
       </div>
 
       <div>
-        <label htmlFor="applicableObject" className="block text-sm font-medium text-gray-700">Applicable Object</label>
+        <label htmlFor="applicableObject" className="block text-sm font-medium text-gray-700">Đối tượng sử dụng</label>
         <input
           type="text"
           id="applicableObject"
@@ -242,7 +242,7 @@ export default function ProductSubmissionForm() {
       </div>
 
       <div>
-        <label htmlFor="scope" className="block text-sm font-medium text-gray-700">Scope</label>
+        <label htmlFor="scope" className="block text-sm font-medium text-gray-700">Phạm vi</label>
         <input
           type="text"
           id="scope"
@@ -255,7 +255,7 @@ export default function ProductSubmissionForm() {
       </div>
 
       <div>
-        <label htmlFor="highlight" className="block text-sm font-medium text-gray-700">Highlight</label>
+        <label htmlFor="highlight" className="block text-sm font-medium text-gray-700">Điểm nổi bật</label>
         <textarea
           id="highlight"
           name="highlight"
@@ -291,27 +291,27 @@ export default function ProductSubmissionForm() {
       </div> */}
 
       <div>
-        <h3 className="text-lg font-medium text-gray-900">Main Terms</h3>
+        <h3 className="text-lg font-medium text-gray-900">Quyền lợi chính</h3>
         {product.mainTerms.map((term, index) => (
           <div key={index} className="mt-4 border-t border-gray-200 pt-4">
             <input
               type="text"
               value={term.name}
               onChange={(e) => handleTermChange(index, 'name', e.target.value, true)}
-              placeholder="Name"
+              placeholder="Tên"
               className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
             <textarea
               value={term.description}
               onChange={(e) => handleTermChange(index, 'description', e.target.value, true)}
-              placeholder="Description"
+              placeholder="Mô tả"
               className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
             <input
               type="number"
               value={term.amount}
               onChange={(e) => handleTermChange(index, 'amount', parseFloat(e.target.value), true)}
-              placeholder="Amount"
+              placeholder="Phí"
               className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
             {/* <input
@@ -325,9 +325,9 @@ export default function ProductSubmissionForm() {
               type="button"
               onClick={() => deleteTerm(index, true)}
               className="mt-2 inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-              aria-label={`Delete main term ${term.name}`}
+              aria-label={`Xóa quyền lợi ${term.name}`}
             >
-              Delete
+              Xóa quyền lợi
             </button>
           </div>
         ))}
@@ -336,7 +336,7 @@ export default function ProductSubmissionForm() {
           onClick={() => addTerm(true)}
           className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
-          Add Main Term
+          Thêm quyền lợi
         </button>
       </div>
 
@@ -348,27 +348,27 @@ export default function ProductSubmissionForm() {
               type="text"
               value={term.name}
               onChange={(e) => handleTermChange(index, 'name', e.target.value, false)}
-              placeholder="Name"
+              placeholder="Tên"
               className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
             <textarea
               value={term.description}
               onChange={(e) => handleTermChange(index, 'description', e.target.value, false)}
-              placeholder="Description"
+              placeholder="Mô tả"
               className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
             <input
               type="number"
               value={term.amount}
               onChange={(e) => handleTermChange(index, 'amount', parseFloat(e.target.value), false)}
-              placeholder="Amount"
+              placeholder="Phí"
               className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
             <input
               type="number"
               value={(term as any).price}
               onChange={(e) => handleTermChange(index, 'price', parseFloat(e.target.value), false)}
-              placeholder="Price"
+              placeholder="Giá"
               className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
             {/* <input
@@ -382,9 +382,9 @@ export default function ProductSubmissionForm() {
               type="button"
               onClick={() => deleteTerm(index, false)}
               className="mt-2 inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-              aria-label={`Delete side term ${term.name}`}
+              aria-label={`Xóa quyền lợi phụ ${term.name}`}
             >
-              Delete
+              Xóa quyền lợi
             </button>
           </div>
         ))}
@@ -393,7 +393,7 @@ export default function ProductSubmissionForm() {
           onClick={() => addTerm(false)}
           className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
-          Add Side Term
+          Thêm quyền lợi phụ
         </button>
       </div>
 
@@ -402,7 +402,7 @@ export default function ProductSubmissionForm() {
           type="submit"
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
-          Submit Product
+          Tạo sản phẩm
         </button>
       </div>
     </form>
