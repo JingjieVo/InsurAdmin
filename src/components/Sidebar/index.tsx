@@ -1,13 +1,13 @@
+import ContractIcon from '@/components/Icons/contract.svg';
+import MoneyIcon from '@/components/Icons/money.svg';
+import ProductIcon from '@/components/Icons/product.svg';
+import { getUserInfo } from '@/services/userService';
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import SidebarLinkGroup from './SidebarLinkGroup';
+import SidebarNoChildTab from './SidebarNoChildTab';
 import SidebarTab from './SidebarTab';
 import SidebarTabsChild from './SidebarTabChild';
-import SidebarNoChildTab from './SidebarNoChildTab';
-import ProductIcon from '@/components/Icons/product.svg';
-import ContractIcon from '@/components/Icons/contract.svg';
-import MoneyIcon from '@/components/Icons/money.svg';
-import { getUserInfo } from '@/services/userService';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -45,7 +45,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         return;
       setSidebarOpen(false);
     };
-    
+
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
   });
@@ -117,11 +117,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
             <ul className="mb-6 flex flex-col gap-1.5">
               {role === 1 ? (
-                <SidebarNoChildTab
-                  href="/createprovider "
-                  tabTitle="Nhà bảo hiểm"
-                  icon={ContractIcon}
-                />
+                <>
+                  <SidebarNoChildTab
+                    href="/createprovider "
+                    tabTitle="Tạo tài khoản"
+                    icon={ContractIcon}
+                  />
+                  <SidebarNoChildTab
+                    href="/providers "
+                    tabTitle="Nhà bảo hiểm"
+                    icon={ContractIcon}
+                  />
+                </>
               ) : (
                 <>
                   <SidebarLinkGroup

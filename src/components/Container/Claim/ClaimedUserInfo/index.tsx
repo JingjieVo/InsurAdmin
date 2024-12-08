@@ -17,7 +17,7 @@ export default function ClaimedUserInfo({ data }: ClaimedUserInfoProps) {
           <div>
             <strong>Tên ngân hàng:</strong> {data.bankName}
           </div>
-          <div>a
+          <div>
             <strong>Chi nhánh ngân hàng:</strong> {data.bankBranch}
           </div>
           <div>
