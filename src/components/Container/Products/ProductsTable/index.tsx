@@ -41,7 +41,7 @@ export default function ProductsTable({ data, onDelete }: { data: ProductsRespon
       }
     }
   };
-
+  console.log(data)
   return (
     <section className="data-table-common p-10 rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="flex justify-between px-8 pb-4">
@@ -92,7 +92,7 @@ export default function ProductsTable({ data, onDelete }: { data: ProductsRespon
             {filteredData
               .slice(
                 (currentPage - 1) * entriesPerPage,
-                currentPage * entriesPerPage
+                (currentPage * entriesPerPage)
               )
               .map((item) => (
                 <tr key={item.id} className="dark:border-strokedark">

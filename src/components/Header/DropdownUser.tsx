@@ -23,13 +23,13 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Sơn Hùng
+            
           </span>
           <span className="block text-xs">System admin</span>
         </span>
 
         <span className="h-12 w-12">
-          <img className='rounded-full' src={AvtUser} alt="User" />
+          <img className='rounded-full' src={"https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="} alt="User" />
         </span>
 
         <svg

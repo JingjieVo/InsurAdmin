@@ -10,6 +10,7 @@ const initialMainTerm: Term = {
   name: '',
   description: '',
   amount: 0,
+  price: 0,
   icon: '',
 };
 
@@ -254,18 +255,18 @@ export default function ProductSubmissionForm() {
       </div>
 
       <div>
-        <label htmlFor="exclusion" className="block text-sm font-medium text-gray-700">Exclusion</label>
+        <label htmlFor="highlight" className="block text-sm font-medium text-gray-700">Highlight</label>
         <textarea
-          id="exclusion"
-          name="exclusion"
-          value={product.exclusion}
+          id="highlight"
+          name="highlight"
+          value={product.highlight}
           onChange={handleInputChange}
           rows={3}
           className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         />
       </div>
 
-      <div>
+      {/* <div>
         <label htmlFor="thumbnail" className="block text-sm font-medium text-gray-700">Thumbnail</label>
         <input
           type="text"
@@ -275,9 +276,9 @@ export default function ProductSubmissionForm() {
           onChange={handleInputChange}
           className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         />
-      </div>
+      </div> */}
 
-      <div>
+      {/* <div>
         <label htmlFor="attachment" className="block text-sm font-medium text-gray-700">Attachment</label>
         <input
           type="text"
@@ -287,7 +288,7 @@ export default function ProductSubmissionForm() {
           onChange={handleInputChange}
           className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         />
-      </div>
+      </div> */}
 
       <div>
         <h3 className="text-lg font-medium text-gray-900">Main Terms</h3>
@@ -313,13 +314,13 @@ export default function ProductSubmissionForm() {
               placeholder="Amount"
               className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
-            <input
+            {/* <input
               type="text"
               value={term.icon}
               onChange={(e) => handleTermChange(index, 'icon', e.target.value, true)}
               placeholder="Icon"
               className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
+            /> */}
             <button
               type="button"
               onClick={() => deleteTerm(index, true)}
@@ -366,17 +367,17 @@ export default function ProductSubmissionForm() {
             <input
               type="number"
               value={(term as any).price}
-              onChange={(e) => handleTermChange(index, 'amount', parseFloat(e.target.value), false)}
+              onChange={(e) => handleTermChange(index, 'price', parseFloat(e.target.value), false)}
               placeholder="Price"
               className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
-            <input
+            {/* <input
               type="text"
               value={term.icon}
               onChange={(e) => handleTermChange(index, 'icon', e.target.value, false)}
               placeholder="Icon"
               className="mt-1 p-5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
+            /> */}
             <button
               type="button"
               onClick={() => deleteTerm(index, false)}

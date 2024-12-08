@@ -1,3 +1,4 @@
+import Loader from '@/common/Loader';
 import ButtonLink from '@/components/ButtonLink';
 import Container from '@/components/Share/Container';
 import { deleteProduct, getProducts } from '@/services/productService';
@@ -6,6 +7,7 @@ import ProductsTable from './ProductsTable';
 
 export default function ProductContent() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const handleDeleteProduct = async (id: number) => {
     try {
       await deleteProduct(id);
@@ -25,22 +27,27 @@ export default function ProductContent() {
       } catch (error) {
         console.error('Failed to fetch products:', error);
       }
+      finally{
+        setLoading(false)
+      }
     };
 
     fetchData();
   }, []);
   return (
     <div>
-      (
-      <>
-        <div className="flex mb-4 justify-end">
-          <ButtonLink title="Thêm" href="/product/products/add-product" />
-        </div>
-        <Container>
-          <ProductsTable data={products} onDelete={handleDeleteProduct} />
-        </Container>
-      </>
-      )
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <div className="flex mb-4 justify-end">
+            <ButtonLink title="Thêm" href="/product/products/add-product" />
+          </div>
+          <Container>
+            <ProductsTable data={products} onDelete={handleDeleteProduct}/>
+          </Container>
+        </>
+      )}
     </div>
   );
 }
