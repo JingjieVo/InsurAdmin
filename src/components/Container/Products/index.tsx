@@ -1,4 +1,3 @@
-import Loader from '@/common/Loader';
 import ButtonLink from '@/components/ButtonLink';
 import Container from '@/components/Share/Container';
 import { deleteProduct, getProducts } from '@/services/productService';
@@ -32,18 +31,16 @@ export default function ProductContent() {
   }, []);
   return (
     <div>
-      {products.length === 0 ? (
-        <Loader />
-      ) : (
-        <>
-          <div className="flex mb-4 justify-end">
-            <ButtonLink title="Thêm" href="/product/products/add-product" />
-          </div>
-          <Container>
-            <ProductsTable data={products} onDelete={handleDeleteProduct}/>
-          </Container>
-        </>
-      )}
+      (
+      <>
+        <div className="flex mb-4 justify-end">
+          <ButtonLink title="Thêm" href="/product/products/add-product" />
+        </div>
+        <Container>
+          <ProductsTable data={products} onDelete={handleDeleteProduct} />
+        </Container>
+      </>
+      )
     </div>
   );
 }
