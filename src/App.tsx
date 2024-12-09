@@ -35,6 +35,7 @@ import Buttons from './pages/UiElements/Buttons';
 import { getUserInfo } from './services/userService';
 import Provider from './pages/Provider';
 import ProductDetail from './pages/ProductDetail';
+import User from './pages/User';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -43,7 +44,7 @@ function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
+ 
   useEffect(() => {
     const userInfo = () => {
       const data = getUserInfo();
@@ -107,6 +108,15 @@ function App() {
             }
           />
           <Route
+            path="/users"
+            element={
+              <>
+                <PageTitle title="Người dùng" />
+                <User />
+              </>
+            }
+          />
+          <Route
             path="/product/question/add-question"
             element={
               <>
@@ -151,7 +161,7 @@ function App() {
               </>
             }
           />
-          
+
           <Route
             path="/product/products/add-product"
             element={
@@ -295,20 +305,20 @@ function App() {
             path="/auth/signin"
             element={
               <>
-                <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Đăng nhập " />
                 <SignIn />
               </>
             }
           />
-          <Route
+          {/* <Route
             path="/auth/signup"
             element={
               <>
-                <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Đăng ký" />
                 <SignUp />
               </>
             }
-          />
+          /> */}
         </Route>
 
         {/* Not Found Route */}

@@ -76,18 +76,18 @@ export default function AddProgram() {
                 required
               />
             </div>
-            <div>
-              <label className="mb-3 block text-start text-black dark:text-white">
-                Câu hỏi
-              </label>
-              <div>
-                <RichTextEditor
-                  key="question"
-                  value={editorsData.question}
-                  setValue={(value) => handleOnChange('question', value)}
-                />
-              </div>
-            </div>
+                {/* <div>
+                  <label className="mb-3 block text-start text-black dark:text-white">
+                    Câu hỏi
+                  </label>
+                  <div>
+                    <RichTextEditor
+                      key="question"
+                      value={editorsData.question}
+                      setValue={(value) => handleOnChange('question', value)}
+                    />
+                  </div>
+                </div> */}
             <div className="-mx-3 flex flex-wrap gap-y-4 justify-center">
               <div className="w-full px-3 2xsm:w-1/5">
                 <input

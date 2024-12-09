@@ -124,8 +124,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     icon={ContractIcon}
                   />
                   <SidebarNoChildTab
-                    href="/providers "
+                    href="/providers"
                     tabTitle="Nhà bảo hiểm"
+                    icon={ContractIcon}
+                  />
+                  <SidebarNoChildTab
+                    href="/users"
+                    tabTitle="Người dùng"
                     icon={ContractIcon}
                   />
                 </>

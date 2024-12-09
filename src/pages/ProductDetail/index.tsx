@@ -174,7 +174,7 @@ export default function ProductDetail() {
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-3xl font-bold mb-6">
-        {isEditing ? 'Edit Product' : 'Product Details'}
+        {isEditing ? 'Chỉnh sửa gói bảo hiểm' : 'Thông tin gói bảo hiểm'}
       </h1>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -193,7 +193,7 @@ export default function ProductDetail() {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Category
+              Danh Mục
             </label>
             <select
               name="categoryId"
@@ -212,7 +212,7 @@ export default function ProductDetail() {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Price
+              Giá
             </label>
             <input
               type="number"
@@ -225,7 +225,7 @@ export default function ProductDetail() {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Status
+              Trạng thái
             </label>
             <select
               name="status"
@@ -234,13 +234,13 @@ export default function ProductDetail() {
               disabled={!isEditing}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             >
-              <option value="AVAILABLE">Available</option>
-              <option value="UNAVAILABLE">Unavailable</option>
+              <option value="AVAILABLE">Khả dụng</option>
+              <option value="UNAVAILABLE">Không khả dụng</option>
             </select>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              From Age
+              Độ tuổi từ
             </label>
             <input
               type="number"
@@ -253,7 +253,7 @@ export default function ProductDetail() {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              To Age
+              Đến độ tuổi
             </label>
             <input
               type="number"
@@ -266,7 +266,7 @@ export default function ProductDetail() {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Gender
+              Giới tính
             </label>
             <select
               name="gender"
@@ -275,9 +275,9 @@ export default function ProductDetail() {
               disabled={!isEditing}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             >
-              <option value="ALL">All</option>
-              <option value="MALE">Male</option>
-              <option value="FEMALE">Female</option>
+              <option value="ALL">Tất cả</option>
+              <option value="MALE">Nam</option>
+              <option value="FEMALE">Nữ</option>
             </select>
           </div>
           <div className="col-span-2">
@@ -349,10 +349,10 @@ export default function ProductDetail() {
 
         {/* Main Terms Section */}
         <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-2">Main Terms</h2>
+          <h2 className="text-xl font-semibold mb-2">Quyền lợi chính</h2>
           {product.mainTerms.map((term, index) => (
             <div key={term.id} className="mb-4 p-4 border rounded relative">
-              <h3 className="font-medium">Term {index + 1}</h3>
+              <h3 className="font-medium">Quyền lợi {index + 1}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                 <input
                   type="text"
@@ -409,7 +409,7 @@ export default function ProductDetail() {
                   onClick={() => deleteMainTerm(term.id)}
                   className="absolute top-2 right-2 text-red-600 hover:text-red-800"
                 >
-                  Delete
+                  Xóa
                 </button>
               )}
             </div>
@@ -420,14 +420,14 @@ export default function ProductDetail() {
               onClick={addMainTerm}
               className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
             >
-              Add Main Term
+              Thêm quyền lợi chính
             </button>
           )}
         </div>
 
         {/* Side Terms Section */}
         <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-2">Side Terms</h2>
+          <h2 className="text-xl font-semibold mb-2">Quyền lợi phụ</h2>
           {product.sideTerms.map((term, index) => (
             <div key={term.id} className="mb-4 p-4 border rounded relative">
               <h3 className="font-medium">Term {index + 1}</h3>
@@ -499,7 +499,7 @@ export default function ProductDetail() {
                   onClick={() => deleteSideTerm(term.id)}
                   className="absolute top-2 right-2 text-red-600 hover:text-red-800"
                 >
-                  Delete
+                  Xóa
                 </button>
               )}
             </div>
@@ -510,7 +510,7 @@ export default function ProductDetail() {
               onClick={addSideTerm}
               className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
             >
-              Add Side Term
+              Thêm quyền lợi phụ
             </button>
           )}
         </div>
@@ -522,14 +522,14 @@ export default function ProductDetail() {
                 type="submit"
                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
               >
-                Save Changes
+                Lưu
               </button>
               <button
                 type="button"
-                onClick={() => setIsEditing(false)}
+                onClick={() => {setIsEditing(false), navigate(0)}}
                 className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
               >
-                Cancel
+                hủy
               </button>
             </>
           ) : (
@@ -539,14 +539,14 @@ export default function ProductDetail() {
                 onClick={handleEdit}
                 className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
               >
-                Edit Product
+                Sửa
               </button>
               <button
                 type="button"
                 onClick={() => navigate('/product/products')}
                 className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
               >
-                Back to Products
+                Quay lại
               </button>
             </>
           )}
