@@ -34,6 +34,7 @@ import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import { getUserInfo } from './services/userService';
 import Provider from './pages/Provider';
+import ProductDetail from './pages/ProductDetail';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -141,6 +142,16 @@ function App() {
               </>
             }
           />
+          <Route
+            path="/product/products/:id"
+            element={
+              <>
+                <PageTitle title="Bảo hiểm" />
+                <ProductDetail />
+              </>
+            }
+          />
+          
           <Route
             path="/product/products/add-product"
             element={

@@ -3,7 +3,8 @@ import ArrowRightIcon from '@/components/Icons/ArrowRightIcon';
 import SelectBox from '@/components/SelectBox';
 import { Product, ProductsResponse } from '@/types/product';
 import { useState, useEffect } from 'react';
-import { TrashIcon } from '@heroicons/react/24/outline';
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 
 interface ProductSearchField {
   id: string;
@@ -11,7 +12,13 @@ interface ProductSearchField {
 
 type SearchField = keyof ProductSearchField;
 
-export default function ProductsTable({ data, onDelete }: { data: ProductsResponse; onDelete: (id: number) => Promise<void> }) {
+export default function ProductsTable({
+  data,
+  onDelete,
+}: {
+  data: ProductsResponse;
+  onDelete: (id: number) => Promise<void>;
+}) {
   const [products, setProducts] = useState<ProductsResponse>(data); // Quản lý dữ liệu sản phẩm trong state
   const [searchValue, setSearchValue] = useState('');
   const [entriesPerPage, setEntriesPerPage] = useState(5);
@@ -21,11 +28,16 @@ export default function ProductsTable({ data, onDelete }: { data: ProductsRespon
   // Lọc dữ liệu theo giá trị tìm kiếm
   const filteredData = products.filter(
     (item) =>
-      item[searchField]?.toString().toLowerCase().includes(searchValue.toLowerCase())
+      item[searchField]
+        ?.toString()
+        .toLowerCase()
+        .includes(searchValue.toLowerCase()),
   );
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value);
-  const handleEntriesChange = (e: React.ChangeEvent<HTMLSelectElement>) => setEntriesPerPage(Number(e.target.value));
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setSearchValue(e.target.value);
+  const handleEntriesChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    setEntriesPerPage(Number(e.target.value));
 
   const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
@@ -34,14 +46,16 @@ export default function ProductsTable({ data, onDelete }: { data: ProductsRespon
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
         await onDelete(id);
-        setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id)); // Loại bỏ sản phẩm khỏi state
+        setProducts((prevProducts) =>
+          prevProducts.filter((product) => product.id !== id),
+        ); // Loại bỏ sản phẩm khỏi state
       } catch (error) {
         console.error('Error deleting product:', error);
         alert('Failed to delete product. Please try again.');
       }
     }
   };
-  console.log(data)
+  // console.log(data);
   return (
     <section className="data-table-common p-10 rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="flex justify-between px-8 pb-4">
@@ -92,30 +106,39 @@ export default function ProductsTable({ data, onDelete }: { data: ProductsRespon
             {filteredData
               .slice(
                 (currentPage - 1) * entriesPerPage,
-                (currentPage * entriesPerPage)
+                currentPage * entriesPerPage,
               )
               .map((item) => (
                 <tr key={item.id} className="dark:border-strokedark">
                   <td className="text-center">{item.id}</td>
                   <td className="text-center">{item.name}</td>
                   <td className="text-center">{item.categoryId}</td>
-                  {/* <td className="text-center">{item.name}</td> */}
-                  {/* <td className="text-center">{item.name}</td> */}
                   <td
                     className={`text-center p-3 ${
-                      item.status === 'AVAILABLE' ? 'text-green-500 ' : 'text-red-500 '
+                      item.status === 'AVAILABLE'
+                        ? 'text-green-500 '
+                        : 'text-red-500 '
                     }`}
                   >
                     {item.status}
                   </td>
                   <td className="text-center p-3">
-                    <button
-                      onClick={() => handleDelete(item.id)}
-                      className="text-red-500 hover:text-red-700"
-                      aria-label={`Delete product ${item.name}`}
-                    >
-                      <TrashIcon className="h-5 w-5" />
-                    </button>
+                    <div className="flex justify-center space-x-2">
+                      <Link
+                        to={`/product/products/${item.id}`}
+                        className="text-blue-500 hover:text-blue-700"
+                        aria-label={`Edit product ${item.name}`}
+                      >
+                        <PencilIcon className="h-5 w-5" />
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(item.id)}
+                        className="text-red-500 hover:text-red-700"
+                        aria-label={`Delete product ${item.name}`}
+                      >
+                        <TrashIcon className="h-5 w-5" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

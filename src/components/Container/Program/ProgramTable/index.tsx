@@ -109,7 +109,7 @@ const CategoryTable = () => {
                   category.name
                 )}
               </td>
-              <td className="text-center p-2 min-w-80">
+              <td className="text-center p-2 min-w-80 max-w-90">
                 {editingCategory?.id === category.id ? (
                   <input
                     type="text"
